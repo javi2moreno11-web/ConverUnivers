@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calcula conversiones de superficie y área entre hectáreas, metros cuadrados, acres y otras unidades comunes.">
+    <title>ConvertUnivers | Conversor de Área y Superficie</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a class="logo" href="index.html">ConverUnivers</a>
+        <p class="tagline">Herramienta de conversiones rápidas</p>
+    </div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav" />
+    <label for="nav-toggle" class="nav-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <button type="button" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
+    <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="longitud.html">Longitud</a>
+        <a href="peso.html">Peso</a>
+        <a href="temperatura.html">Temperatura</a>
+        <a href="monedas.html">Monedas</a>
+        <a href="tiempo.html">Tiempo</a>
+        <a href="zonashorarias.html">Zonas</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="velocidad.html">Velocidad</a>
+        <a href="area.html">Área</a>
+    </nav>
+</header>
+
+<main>
+
+    <div class="tarjeta">
+
+        <p>Área</p>
+        <input type="number" id="cantidad" value="1">
+
+        <p>De</p>
+        <select id="origen">
+            <option>Metros cuadrados</option>
+            <option>Kilómetros cuadrados</option>
+            <option>Centímetros cuadrados</option>
+            <option>Hectáreas</option>
+            <option>Acres</option>
+        </select>
+
+        <p>A</p>
+        <select id="destino">
+            <option>Kilómetros cuadrados</option>
+            <option>Metros cuadrados</option>
+            <option>Centímetros cuadrados</option>
+            <option>Hectáreas</option>
+            <option>Acres</option>
+        </select>
+
+        <h2 id="resultado"></h2>
+
+        <div class="historial">
+            <p class="historial-titulo">Historial</p>
+            <ul id="historial-lista" class="historial-lista"></ul>
+            <button type="button" class="boton-limpiar" id="limpiar-historial">Limpiar</button>
+        </div>
+
+    </div>
+
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 ConverUnivers · Conversor de unidades.</p>
+</footer>
+
+<script src="theme.js"></script>
+<script src="area.js"></script>
+
+</body>
+</html>

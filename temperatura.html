@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convierte temperaturas entre Celsius, Fahrenheit y Kelvin de forma rápida y clara.">
+    <title>ConvertUnivers | Conversor de Temperatura</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a class="logo" href="index.html">ConverUnivers</a>
+        <p class="tagline">Herramienta de conversiones rápidas</p>
+    </div>
+    <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="longitud.html">Longitud</a>
+        <a href="peso.html">Peso</a>
+        <a href="temperatura.html">Temperatura</a>
+        <a href="monedas.html">Monedas</a>
+        <a href="tiempo.html">Tiempo</a>
+        <a href="zonashorarias.html">Zonas</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="velocidad.html">Velocidad</a>
+        <a href="area.html">Área</a>
+    </nav>
+</header>
+
+<main>
+    <section class="tarjeta" aria-labelledby="titulo-conversor">
+        <h1 id="titulo-conversor" class="sr-only">Conversor de temperatura</h1>
+
+        <label for="cantidad" class="campo-label">Cantidad</label>
+        <input type="number" id="cantidad" value="20" inputmode="decimal" autocomplete="off">
+
+        <label for="origen" class="campo-label">De</label>
+        <select id="origen">
+            <option>Celsius</option>
+            <option>Fahrenheit</option>
+            <option>Kelvin</option>
+        </select>
+
+        <label for="destino" class="campo-label">A</label>
+        <select id="destino">
+            <option>Fahrenheit</option>
+            <option>Celsius</option>
+            <option>Kelvin</option>
+        </select>
+
+        <h2 id="resultado" aria-live="polite"></h2>
+
+        <section class="historial" aria-labelledby="historial-titulo">
+            <h2 id="historial-titulo" class="historial-titulo">Historial</h2>
+            <ul id="historial-lista" class="historial-lista"></ul>
+            <button type="button" class="boton-limpiar" id="limpiar-historial" aria-label="Limpiar historial">Limpiar</button>
+        </section>
+    </section>
+</main>
+
+<script src="theme.js"></script>
+<script>
+    function convertir() {
+        const cantidad = parseFloat(document.getElementById('cantidad').value);
+        const origen = document.getElementById('origen').value;
+        const destino = document.getElementById('destino').value;
+
+        if (isNaN(cantidad)) {
+            document.getElementById('resultado').textContent = '';
+            return;
+        }
+
+        let celsius;
+
+        switch (origen) {
+            case 'Fahrenheit':
+                celsius = (cantidad - 32) * 5 / 9;
+                break;
+            case 'Kelvin':
+                celsius = cantidad - 273.15;
+                break;
+            default:
+                celsius = cantidad;
+        }
+
+        let resultado;
+
+        switch (destino) {
+            case 'Fahrenheit':
+                resultado = celsius * 9 / 5 + 32;
+                break;
+            case 'Kelvin':
+                resultado = celsius + 273.15;
+                break;
+            default:
+                resultado = celsius;
+        }
+
+        document.getElementById('resultado').textContent = `${resultado.toFixed(2)} ${destino}`;
+    }
+
+    const cantidadEl = document.getElementById('cantidad');
+    const origenEl = document.getElementById('origen');
+    const destinoEl = document.getElementById('destino');
+
+    cantidadEl.addEventListener('input', convertir);
+    origenEl.addEventListener('change', convertir);
+    destinoEl.addEventListener('change', convertir);
+
+    convertir();
+</script>
+<script src="temperatura.js"></script>
+
+</body>
+</html>
