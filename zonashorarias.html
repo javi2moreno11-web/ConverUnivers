@@ -4,7 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Compara y convierte zonas horarias para organizar horarios internacionales sin complicaciones.">
-    <title>ConvertUnivers | Conversor de Zonas Horarias</title>
+    <title>ConverUnivers | Conversor de Zonas Horarias</title>
+    <link rel="canonical" href="https://converunivers.com/zonashorarias.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://converunivers.com/zonashorarias.html">
+    <meta property="og:site_name" content="ConverUnivers">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="ConverUnivers | Conversor de Zonas Horarias">
+    <meta property="og:description" content="Compara y convierte zonas horarias para organizar horarios internacionales sin complicaciones.">
+    <meta property="og:image" content="https://converunivers.com/favicon.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ConverUnivers | Conversor de Zonas Horarias">
+    <meta name="twitter:description" content="Compara y convierte zonas horarias para organizar horarios internacionales sin complicaciones.">
+    <meta name="twitter:image" content="https://converunivers.com/favicon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "ConverUnivers | Conversor de Zonas Horarias",
+      "description": "Compara y convierte zonas horarias para organizar horarios internacionales sin complicaciones.",
+      "url": "https://converunivers.com/zonashorarias.html",
+      "inLanguage": "es-ES"
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
@@ -28,11 +54,13 @@
         <a href="peso.html">Peso</a>
         <a href="temperatura.html">Temperatura</a>
         <a href="monedas.html">Monedas</a>
+        <a href="criptomonedas.html">Criptomonedas</a>
         <a href="tiempo.html">Tiempo</a>
         <a href="zonashorarias.html">Zonas</a>
         <a href="almacenamiento.html">Almacenamiento</a>
         <a href="velocidad.html">Velocidad</a>
         <a href="area.html">Área</a>
+        <a href="calculadora.html">Calculadora</a>
     </nav>
 </header>
 
@@ -40,27 +68,32 @@
 
     <div class="tarjeta">
 
+        <h1 id="titulo-conversor" class="sr-only">Conversor de zonas horarias</h1>
         <p>Hora</p>
         <input type="time" id="cantidad" value="12:00">
 
         <p>De</p>
         <select id="origen">
-            <option>UTC</option>
-            <option>Madrid</option>
-            <option>Londres</option>
-            <option>Nueva York</option>
-            <option>Los Ángeles</option>
-            <option>Tokio</option>
+            <option value="UTC">🌐 UTC</option>
+            <option value="Madrid">🇪🇸 Madrid</option>
+            <option value="Londres">🇬🇧 Londres</option>
+            <option value="Nueva York">🇺🇸 Nueva York</option>
+            <option value="Los Ángeles">🇺🇸 Los Ángeles</option>
+            <option value="Tokio">🇯🇵 Tokio</option>
         </select>
+
+        <div class="fila-invertir">
+            <button type="button" class="boton-invertir" id="invertir-unidades" aria-label="Invertir unidades de conversión">🔁</button>
+        </div>
 
         <p>A</p>
         <select id="destino">
-            <option>Madrid</option>
-            <option>UTC</option>
-            <option>Londres</option>
-            <option>Nueva York</option>
-            <option>Los Ángeles</option>
-            <option>Tokio</option>
+            <option value="Madrid">🇪🇸 Madrid</option>
+            <option value="UTC">🌐 UTC</option>
+            <option value="Londres">🇬🇧 Londres</option>
+            <option value="Nueva York">🇺🇸 Nueva York</option>
+            <option value="Los Ángeles">🇺🇸 Los Ángeles</option>
+            <option value="Tokio">🇯🇵 Tokio</option>
         </select>
 
         <h2 id="resultado"></h2>
@@ -80,6 +113,7 @@
 </footer>
 
 <script src="theme.js"></script>
+<script src="acciones.js"></script>
 <script src="zonashorarias.js"></script>
 
 </body>

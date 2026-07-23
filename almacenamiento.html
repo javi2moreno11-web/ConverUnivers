@@ -4,7 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Convierte fácilmente entre unidades de almacenamiento digital como bytes, KB, MB, GB y TB con ConverUnivers.">
-    <title>ConvertUnivers | Conversor de Almacenamiento Digital</title>
+    <title>ConverUnivers | Conversor de Almacenamiento Digital</title>
+    <link rel="canonical" href="https://converunivers.com/almacenamiento.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://converunivers.com/almacenamiento.html">
+    <meta property="og:site_name" content="ConverUnivers">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="ConverUnivers | Conversor de Almacenamiento Digital">
+    <meta property="og:description" content="Convierte fácilmente entre unidades de almacenamiento digital como bytes, KB, MB, GB y TB con ConverUnivers.">
+    <meta property="og:image" content="https://converunivers.com/favicon.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ConverUnivers | Conversor de Almacenamiento Digital">
+    <meta name="twitter:description" content="Convierte fácilmente entre unidades de almacenamiento digital como bytes, KB, MB, GB y TB con ConverUnivers.">
+    <meta name="twitter:image" content="https://converunivers.com/favicon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "ConverUnivers | Conversor de Almacenamiento Digital",
+      "description": "Convierte fácilmente entre unidades de almacenamiento digital como bytes, KB, MB, GB y TB con ConverUnivers.",
+      "url": "https://converunivers.com/almacenamiento.html",
+      "inLanguage": "es-ES"
+    }
+    </script>
+
+    <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,11 +54,13 @@
         <a href="peso.html">Peso</a>
         <a href="temperatura.html">Temperatura</a>
         <a href="monedas.html">Monedas</a>
+        <a href="criptomonedas.html">Criptomonedas</a>
         <a href="tiempo.html">Tiempo</a>
         <a href="zonashorarias.html">Zonas</a>
         <a href="almacenamiento.html">Almacenamiento</a>
         <a href="velocidad.html">Velocidad</a>
         <a href="area.html">Área</a>
+        <a href="calculadora.html">Calculadora</a>
     </nav>
 </header>
 
@@ -39,6 +68,7 @@
 
     <div class="tarjeta">
 
+        <h1 id="titulo-conversor" class="sr-only">Conversor de almacenamiento</h1>
         <p>Almacenamiento</p>
         <input type="number" id="cantidad" value="1">
 
@@ -50,6 +80,10 @@
             <option>GB</option>
             <option>TB</option>
         </select>
+
+        <div class="fila-invertir">
+            <button type="button" class="boton-invertir" id="invertir-unidades" aria-label="Invertir unidades de conversión">🔁</button>
+        </div>
 
         <p>A</p>
         <select id="destino">
@@ -77,6 +111,7 @@
 </footer>
 
 <script src="theme.js"></script>
+<script src="acciones.js"></script>
 <script src="almacenamiento.js"></script>
 
 </body>

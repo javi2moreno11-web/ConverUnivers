@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convierte julios, kilojulios, calorías, kilocalorías y vatios-hora con precisión.">
-    <title>ConverUnivers | Conversor de Energía</title>
-    <link rel="canonical" href="https://converunivers.com/energia.html">
+    <meta name="description" content="Convierte criptomonedas como Bitcoin, Ethereum y otras con cotizaciones en tiempo real.">
+    <title>ConverUnivers | Conversor de Criptomonedas</title>
+    <link rel="canonical" href="https://converunivers.com/criptomonedas.html">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://converunivers.com/energia.html">
+    <meta property="og:url" content="https://converunivers.com/criptomonedas.html">
     <meta property="og:site_name" content="ConverUnivers">
     <meta property="og:locale" content="es_ES">
-    <meta property="og:title" content="ConverUnivers | Conversor de Energía">
-    <meta property="og:description" content="Convierte julios, kilojulios, calorías, kilocalorías y vatios-hora con precisión.">
+    <meta property="og:title" content="ConverUnivers | Conversor de Criptomonedas">
+    <meta property="og:description" content="Convierte criptomonedas como Bitcoin, Ethereum y otras con cotizaciones en tiempo real.">
     <meta property="og:image" content="https://converunivers.com/favicon.png">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="ConverUnivers | Conversor de Energía">
-    <meta name="twitter:description" content="Convierte julios, kilojulios, calorías, kilocalorías y vatios-hora con precisión.">
+    <meta name="twitter:title" content="ConverUnivers | Conversor de Criptomonedas">
+    <meta name="twitter:description" content="Convierte criptomonedas como Bitcoin, Ethereum y otras con cotizaciones en tiempo real.">
     <meta name="twitter:image" content="https://converunivers.com/favicon.png">
 
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "ConverUnivers | Conversor de Energía",
-      "description": "Convierte julios, kilojulios, calorías, kilocalorías y vatios-hora con precisión.",
-      "url": "https://converunivers.com/energia.html",
+      "name": "ConverUnivers | Conversor de Criptomonedas",
+      "description": "Convierte criptomonedas como Bitcoin, Ethereum y otras con cotizaciones en tiempo real.",
+      "url": "https://converunivers.com/criptomonedas.html",
       "inLanguage": "es-ES"
     }
     </script>
@@ -41,17 +41,13 @@
         <a class="logo" href="index.html">ConverUnivers</a>
         <p class="tagline">Herramienta de conversiones rápidas</p>
     </div>
-
-    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav" />
-
-    <label for="nav-toggle" class="nav-toggle" aria-label="Abrir menú">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav">
+    <label for="nav-toggle" class="nav-toggle">
         <span></span>
         <span></span>
         <span></span>
     </label>
-
     <button type="button" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
-
     <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
         <a href="index.html">Inicio</a>
         <a href="longitud.html">Longitud</a>
@@ -64,53 +60,34 @@
         <a href="almacenamiento.html">Almacenamiento</a>
         <a href="velocidad.html">Velocidad</a>
         <a href="area.html">Área</a>
-        <a href="volumen.html">Volumen</a>
-        <a href="presion.html">Presión</a>
-        <a href="energia.html">Energía</a>
         <a href="calculadora.html">Calculadora</a>
     </nav>
 </header>
 
 <main>
     <section class="tarjeta" aria-labelledby="titulo-conversor">
-
-        <h1 id="titulo-conversor" class="sr-only">Conversor de energía</h1>
+        <h1 id="titulo-conversor" class="sr-only">Conversor de criptomonedas</h1>
 
         <label for="cantidad" class="campo-label">Cantidad</label>
         <input type="number" id="cantidad" value="1" inputmode="decimal" autocomplete="off">
 
         <label for="origen" class="campo-label">De</label>
-        <select id="origen">
-            <option>Julio</option>
-            <option>Kilojulio</option>
-            <option>Caloría</option>
-            <option>Kilocaloría</option>
-            <option>Vatio-hora</option>
-        </select>
+        <select id="origen"></select>
 
         <div class="fila-invertir">
             <button type="button" class="boton-invertir" id="invertir-unidades" aria-label="Invertir unidades de conversión">🔁</button>
         </div>
 
         <label for="destino" class="campo-label">A</label>
-        <select id="destino">
-            <option>Julio</option>
-            <option>Kilojulio</option>
-            <option>Caloría</option>
-            <option>Kilocaloría</option>
-            <option>Vatio-hora</option>
-        </select>
+        <select id="destino"></select>
 
-        <h2 id="resultado" aria-live="polite"></h2>
+        <h2 id="resultado" aria-live="polite">1 BTC = ? ETH</h2>
 
         <section class="historial" aria-labelledby="historial-titulo">
             <h2 id="historial-titulo" class="historial-titulo">Historial</h2>
             <ul id="historial-lista" class="historial-lista"></ul>
-            <button type="button" class="boton-limpiar" id="limpiar-historial" aria-label="Limpiar historial">
-                Limpiar
-            </button>
+            <button type="button" class="boton-limpiar" id="limpiar-historial" aria-label="Limpiar historial">Limpiar</button>
         </section>
-
     </section>
 </main>
 
@@ -120,7 +97,7 @@
 
 <script src="theme.js"></script>
 <script src="acciones.js"></script>
-<script src="energia.js"></script>
+<script src="criptomonedas.js"></script>
 
 </body>
 </html>

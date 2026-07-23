@@ -54,7 +54,29 @@ const infoMonedas = {
     CHF: "🇨🇭 Swiss Franc (CHF)",
     CNY: "🇨🇳 Chinese Yuan (CNY)",
     MXN: "🇲🇽 Mexican Peso (MXN)",
-    BRL: "🇧🇷 Brazilian Real (BRL)"
+    BRL: "🇧🇷 Brazilian Real (BRL)",
+    ARS: "🇦🇷 Argentine Peso (ARS)",
+    CLP: "🇨🇱 Chilean Peso (CLP)",
+    COP: "🇨🇴 Colombian Peso (COP)",
+    PEN: "🇵🇪 Peruvian Sol (PEN)",
+    UYU: "🇺🇾 Uruguayan Peso (UYU)",
+    PYG: "🇵🇾 Paraguayan Guaraní (PYG)",
+    BOB: "🇧🇴 Bolivian Boliviano (BOB)",
+    CRC: "🇨🇷 Costa Rican Colón (CRC)",
+    GTQ: "🇬🇹 Guatemalan Quetzal (GTQ)",
+    HNL: "🇭🇳 Honduran Lempira (HNL)",
+    NIO: "🇳🇮 Nicaraguan Córdoba (NIO)",
+    DOP: "🇩🇴 Dominican Peso (DOP)",
+    AED: "🇦🇪 UAE Dirham (AED)",
+    SAR: "🇸🇦 Saudi Riyal (SAR)",
+    TRY: "🇹🇷 Turkish Lira (TRY)",
+    RUB: "🇷🇺 Russian Ruble (RUB)",
+    INR: "🇮🇳 Indian Rupee (INR)",
+    KRW: "🇰🇷 South Korean Won (KRW)",
+    SGD: "🇸🇬 Singapore Dollar (SGD)",
+    HKD: "🇭🇰 Hong Kong Dollar (HKD)",
+    NZD: "🇳🇿 New Zealand Dollar (NZD)",
+    ZAR: "🇿🇦 South African Rand (ZAR)"
 };
 
 function cargarMonedas() {
@@ -138,7 +160,16 @@ function actualizarHistorial(texto) {
 
     historial.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = item;
+        const textoSpan = document.createElement("span");
+        textoSpan.textContent = item;
+        const botonCopiar = document.createElement("button");
+        botonCopiar.type = "button";
+        botonCopiar.className = "boton-copiar";
+        botonCopiar.setAttribute("aria-label", "Copiar resultado");
+        botonCopiar.textContent = "📋";
+        botonCopiar.dataset.texto = item;
+        li.appendChild(textoSpan);
+        li.appendChild(botonCopiar);
         historialLista.appendChild(li);
     });
 
@@ -176,12 +207,15 @@ document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
 
 cargarMonedas();
-document.getElementById("guardar-favorito").addEventListener("click", () => {
-    const texto = document.getElementById("resultado").textContent;
-    if (texto) {
-        guardarFavorito(texto);
-    }
-});
+const guardarFavoritoBtn = document.getElementById("guardar-favorito");
+if (guardarFavoritoBtn) {
+    guardarFavoritoBtn.addEventListener("click", () => {
+        const texto = document.getElementById("resultado").textContent;
+        if (texto) {
+            guardarFavorito(texto);
+        }
+    });
+}
 
 mostrarFavoritos();
 convertir(false);

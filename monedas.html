@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Compara y convierte monedas extranjeras con una herramienta online rápida, sencilla y práctica.">
     <title>ConverUnivers | Conversor de Monedas Online</title>
+    <link rel="canonical" href="https://converunivers.com/monedas.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://converunivers.com/monedas.html">
+    <meta property="og:site_name" content="ConverUnivers">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="ConverUnivers | Conversor de Monedas Online">
+    <meta property="og:description" content="Compara y convierte monedas extranjeras con una herramienta online rápida, sencilla y práctica.">
+    <meta property="og:image" content="https://converunivers.com/favicon.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ConverUnivers | Conversor de Monedas Online">
+    <meta name="twitter:description" content="Compara y convierte monedas extranjeras con una herramienta online rápida, sencilla y práctica.">
+    <meta name="twitter:image" content="https://converunivers.com/favicon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "ConverUnivers | Conversor de Monedas Online",
+      "description": "Compara y convierte monedas extranjeras con una herramienta online rápida, sencilla y práctica.",
+      "url": "https://converunivers.com/monedas.html",
+      "inLanguage": "es-ES"
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
@@ -28,11 +54,13 @@
         <a href="peso.html">Peso</a>
         <a href="temperatura.html">Temperatura</a>
         <a href="monedas.html">Monedas</a>
+        <a href="criptomonedas.html">Criptomonedas</a>
         <a href="tiempo.html">Tiempo</a>
         <a href="zonashorarias.html">Zonas</a>
         <a href="almacenamiento.html">Almacenamiento</a>
         <a href="velocidad.html">Velocidad</a>
         <a href="area.html">Área</a>
+        <a href="calculadora.html">Calculadora</a>
     </nav>
 </header>
 
@@ -45,6 +73,10 @@
 
         <label for="origen" class="campo-label">De</label>
         <select id="origen"></select>
+
+        <div class="fila-invertir">
+            <button type="button" class="boton-invertir" id="invertir-unidades" aria-label="Invertir unidades de conversión">🔁</button>
+        </div>
 
         <label for="destino" class="campo-label">A</label>
         <select id="destino"></select>
@@ -64,6 +96,7 @@
 </footer>
 
 <script src="theme.js"></script>
+<script src="acciones.js"></script>
 <script src="script.js"></script>
 
 </body>

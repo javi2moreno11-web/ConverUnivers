@@ -4,7 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Convierte distancias y longitudes entre metros, kilómetros, millas, pies y otras unidades con facilidad.">
-    <title>ConvertUnivers | Conversor de Longitud y Distancias</title>
+    <title>ConverUnivers | Conversor de Longitud y Distancias</title>
+    <link rel="canonical" href="https://converunivers.com/longitud.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://converunivers.com/longitud.html">
+    <meta property="og:site_name" content="ConverUnivers">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="ConverUnivers | Conversor de Longitud y Distancias">
+    <meta property="og:description" content="Convierte distancias y longitudes entre metros, kilómetros, millas, pies y otras unidades con facilidad.">
+    <meta property="og:image" content="https://converunivers.com/favicon.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ConverUnivers | Conversor de Longitud y Distancias">
+    <meta name="twitter:description" content="Convierte distancias y longitudes entre metros, kilómetros, millas, pies y otras unidades con facilidad.">
+    <meta name="twitter:image" content="https://converunivers.com/favicon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "ConverUnivers | Conversor de Longitud y Distancias",
+      "description": "Convierte distancias y longitudes entre metros, kilómetros, millas, pies y otras unidades con facilidad.",
+      "url": "https://converunivers.com/longitud.html",
+      "inLanguage": "es-ES"
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
@@ -28,11 +54,13 @@
         <a href="peso.html">Peso</a>
         <a href="temperatura.html">Temperatura</a>
         <a href="monedas.html">Monedas</a>
+        <a href="criptomonedas.html">Criptomonedas</a>
         <a href="tiempo.html">Tiempo</a>
         <a href="zonashorarias.html">Zonas</a>
         <a href="almacenamiento.html">Almacenamiento</a>
         <a href="velocidad.html">Velocidad</a>
         <a href="area.html">Área</a>
+        <a href="calculadora.html">Calculadora</a>
     </nav>
 </header>
 
@@ -54,6 +82,10 @@
             <option>Pies</option>
             <option>Pulgadas</option>
         </select>
+
+        <div class="fila-invertir">
+            <button type="button" class="boton-invertir" id="invertir-unidades" aria-label="Invertir unidades de conversión">🔁</button>
+        </div>
 
         <label for="destino" class="campo-label">A</label>
         <select id="destino">
@@ -82,6 +114,7 @@
 </footer>
 
 <script src="theme.js"></script>
+<script src="acciones.js"></script>
 <script src="longitud.js"></script>
 
 </body>

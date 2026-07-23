@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora online gratuita con un diseño inspirado en la de Google: suma, resta, multiplica, divide y guarda un historial de tus operaciones.">
+    <title>ConverUnivers | Calculadora Online</title>
+    <link rel="canonical" href="https://converunivers.com/calculadora.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://converunivers.com/calculadora.html">
+    <meta property="og:site_name" content="ConverUnivers">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="ConverUnivers | Calculadora Online">
+    <meta property="og:description" content="Calculadora online gratuita con un diseño inspirado en la de Google: suma, resta, multiplica, divide y guarda un historial de tus operaciones.">
+    <meta property="og:image" content="https://converunivers.com/favicon.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ConverUnivers | Calculadora Online">
+    <meta name="twitter:description" content="Calculadora online gratuita con un diseño inspirado en la de Google: suma, resta, multiplica, divide y guarda un historial de tus operaciones.">
+    <meta name="twitter:image" content="https://converunivers.com/favicon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "ConverUnivers | Calculadora Online",
+      "description": "Calculadora online gratuita con un diseño inspirado en la de Google: suma, resta, multiplica, divide y guarda un historial de tus operaciones.",
+      "url": "https://converunivers.com/calculadora.html",
+      "inLanguage": "es-ES"
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+        <a class="logo" href="index.html">ConverUnivers</a>
+        <p class="tagline">Herramienta de conversiones rápidas</p>
+    </div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav" >
+    <label for="nav-toggle" class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <button type="button" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
+    <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="longitud.html">Longitud</a>
+        <a href="peso.html">Peso</a>
+        <a href="temperatura.html">Temperatura</a>
+        <a href="monedas.html">Monedas</a>
+        <a href="criptomonedas.html">Criptomonedas</a>
+        <a href="tiempo.html">Tiempo</a>
+        <a href="zonashorarias.html">Zonas</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="velocidad.html">Velocidad</a>
+        <a href="area.html">Área</a>
+        <a href="volumen.html">Volumen</a>
+        <a href="presion.html">Presión</a>
+        <a href="energia.html">Energía</a>
+        <a href="calculadora.html">Calculadora</a>
+    </nav>
+</header>
+
+<main>
+    <section class="tarjeta tarjeta-calculadora" aria-labelledby="titulo-conversor">
+        <h1 id="titulo-conversor" class="sr-only">Calculadora</h1>
+
+        <div class="calculadora-principal">
+            <div class="calculadora-pantalla">
+                <p id="calc-expresion" class="calc-expresion" aria-hidden="true"></p>
+                <p id="calc-resultado" class="calc-resultado" contenteditable="true" spellcheck="false" inputmode="decimal" role="textbox" aria-label="Resultado de la calculadora, puedes escribir tu operación">0</p>
+            </div>
+
+            <div class="calculadora-teclado">
+                <button type="button" class="tecla-calc tecla-funcion" data-accion="limpiar" aria-label="Borrar todo">AC</button>
+                <button type="button" class="tecla-calc tecla-funcion" data-accion="borrar" aria-label="Borrar último carácter">⌫</button>
+                <button type="button" class="tecla-calc tecla-funcion" data-accion="porcentaje" aria-label="Porcentaje">%</button>
+                <button type="button" class="tecla-calc tecla-operador" data-operador="÷" aria-label="Dividir">÷</button>
+
+                <button type="button" class="tecla-calc" data-numero="7">7</button>
+                <button type="button" class="tecla-calc" data-numero="8">8</button>
+                <button type="button" class="tecla-calc" data-numero="9">9</button>
+                <button type="button" class="tecla-calc tecla-operador" data-operador="×" aria-label="Multiplicar">×</button>
+
+                <button type="button" class="tecla-calc" data-numero="4">4</button>
+                <button type="button" class="tecla-calc" data-numero="5">5</button>
+                <button type="button" class="tecla-calc" data-numero="6">6</button>
+                <button type="button" class="tecla-calc tecla-operador" data-operador="−" aria-label="Restar">−</button>
+
+                <button type="button" class="tecla-calc" data-numero="1">1</button>
+                <button type="button" class="tecla-calc" data-numero="2">2</button>
+                <button type="button" class="tecla-calc" data-numero="3">3</button>
+                <button type="button" class="tecla-calc tecla-operador" data-operador="+" aria-label="Sumar">+</button>
+
+                <button type="button" class="tecla-calc tecla-funcion" data-accion="signo" aria-label="Cambiar signo">+/-</button>
+                <button type="button" class="tecla-calc" data-numero="0">0</button>
+                <button type="button" class="tecla-calc" data-numero="." aria-label="Punto decimal">.</button>
+                <button type="button" class="tecla-calc tecla-igual" data-accion="igual" aria-label="Calcular resultado">=</button>
+            </div>
+        </div>
+
+        <section class="historial" aria-labelledby="historial-titulo">
+            <h2 id="historial-titulo" class="historial-titulo">Historial</h2>
+            <ul id="historial-lista" class="historial-lista"></ul>
+            <button type="button" class="boton-limpiar" id="limpiar-historial" aria-label="Limpiar historial">Limpiar</button>
+        </section>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 ConverUnivers · Conversor de unidades.</p>
+</footer>
+
+<script src="theme.js"></script>
+<script src="acciones.js"></script>
+<script src="calculadora.js"></script>
+
+</body>
+</html>

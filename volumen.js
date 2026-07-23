@@ -27,7 +27,16 @@ function actualizarHistorial(texto) {
 
     historial.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = item;
+        const textoSpan = document.createElement("span");
+        textoSpan.textContent = item;
+        const botonCopiar = document.createElement("button");
+        botonCopiar.type = "button";
+        botonCopiar.className = "boton-copiar";
+        botonCopiar.setAttribute("aria-label", "Copiar resultado");
+        botonCopiar.textContent = "📋";
+        botonCopiar.dataset.texto = item;
+        li.appendChild(textoSpan);
+        li.appendChild(botonCopiar);
         historialLista.appendChild(li);
     });
 

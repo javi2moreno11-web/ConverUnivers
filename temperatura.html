@@ -4,7 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Convierte temperaturas entre Celsius, Fahrenheit y Kelvin de forma rápida y clara.">
-    <title>ConvertUnivers | Conversor de Temperatura</title>
+    <title>ConverUnivers | Conversor de Temperatura</title>
+    <link rel="canonical" href="https://converunivers.com/temperatura.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://converunivers.com/temperatura.html">
+    <meta property="og:site_name" content="ConverUnivers">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:title" content="ConverUnivers | Conversor de Temperatura">
+    <meta property="og:description" content="Convierte temperaturas entre Celsius, Fahrenheit y Kelvin de forma rápida y clara.">
+    <meta property="og:image" content="https://converunivers.com/favicon.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ConverUnivers | Conversor de Temperatura">
+    <meta name="twitter:description" content="Convierte temperaturas entre Celsius, Fahrenheit y Kelvin de forma rápida y clara.">
+    <meta name="twitter:image" content="https://converunivers.com/favicon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "ConverUnivers | Conversor de Temperatura",
+      "description": "Convierte temperaturas entre Celsius, Fahrenheit y Kelvin de forma rápida y clara.",
+      "url": "https://converunivers.com/temperatura.html",
+      "inLanguage": "es-ES"
+    }
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
@@ -15,17 +41,26 @@
         <a class="logo" href="index.html">ConverUnivers</a>
         <p class="tagline">Herramienta de conversiones rápidas</p>
     </div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav" />
+    <label for="nav-toggle" class="nav-toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
+    <button type="button" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
     <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
         <a href="index.html">Inicio</a>
         <a href="longitud.html">Longitud</a>
         <a href="peso.html">Peso</a>
         <a href="temperatura.html">Temperatura</a>
         <a href="monedas.html">Monedas</a>
+        <a href="criptomonedas.html">Criptomonedas</a>
         <a href="tiempo.html">Tiempo</a>
         <a href="zonashorarias.html">Zonas</a>
         <a href="almacenamiento.html">Almacenamiento</a>
         <a href="velocidad.html">Velocidad</a>
         <a href="area.html">Área</a>
+        <a href="calculadora.html">Calculadora</a>
     </nav>
 </header>
 
@@ -42,6 +77,10 @@
             <option>Fahrenheit</option>
             <option>Kelvin</option>
         </select>
+
+        <div class="fila-invertir">
+            <button type="button" class="boton-invertir" id="invertir-unidades" aria-label="Invertir unidades de conversión">🔁</button>
+        </div>
 
         <label for="destino" class="campo-label">A</label>
         <select id="destino">
@@ -60,57 +99,12 @@
     </section>
 </main>
 
+<footer class="site-footer">
+    <p>© 2026 ConverUnivers · Conversor de unidades.</p>
+</footer>
+
 <script src="theme.js"></script>
-<script>
-    function convertir() {
-        const cantidad = parseFloat(document.getElementById('cantidad').value);
-        const origen = document.getElementById('origen').value;
-        const destino = document.getElementById('destino').value;
-
-        if (isNaN(cantidad)) {
-            document.getElementById('resultado').textContent = '';
-            return;
-        }
-
-        let celsius;
-
-        switch (origen) {
-            case 'Fahrenheit':
-                celsius = (cantidad - 32) * 5 / 9;
-                break;
-            case 'Kelvin':
-                celsius = cantidad - 273.15;
-                break;
-            default:
-                celsius = cantidad;
-        }
-
-        let resultado;
-
-        switch (destino) {
-            case 'Fahrenheit':
-                resultado = celsius * 9 / 5 + 32;
-                break;
-            case 'Kelvin':
-                resultado = celsius + 273.15;
-                break;
-            default:
-                resultado = celsius;
-        }
-
-        document.getElementById('resultado').textContent = `${resultado.toFixed(2)} ${destino}`;
-    }
-
-    const cantidadEl = document.getElementById('cantidad');
-    const origenEl = document.getElementById('origen');
-    const destinoEl = document.getElementById('destino');
-
-    cantidadEl.addEventListener('input', convertir);
-    origenEl.addEventListener('change', convertir);
-    destinoEl.addEventListener('change', convertir);
-
-    convertir();
-</script>
+<script src="acciones.js"></script>
 <script src="temperatura.js"></script>
 
 </body>

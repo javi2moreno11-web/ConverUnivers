@@ -55,7 +55,16 @@ function actualizarHistorial(texto) {
 
     historial.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = item;
+        const textoSpan = document.createElement("span");
+        textoSpan.textContent = item;
+        const botonCopiar = document.createElement("button");
+        botonCopiar.type = "button";
+        botonCopiar.className = "boton-copiar";
+        botonCopiar.setAttribute("aria-label", "Copiar resultado");
+        botonCopiar.textContent = "📋";
+        botonCopiar.dataset.texto = item;
+        li.appendChild(textoSpan);
+        li.appendChild(botonCopiar);
         historialLista.appendChild(li);
     });
 
@@ -118,12 +127,15 @@ const destinoEl = document.getElementById("destino");
 cantidadEl.addEventListener("input", convertir);
 origenEl.addEventListener("change", convertir);
 destinoEl.addEventListener("change", convertir);
-document.getElementById("guardar-favorito").addEventListener("click", () => {
-    const texto = document.getElementById("resultado").textContent;
-    if (texto) {
-        guardarFavorito(texto);
-    }
-});
+const guardarFavoritoBtn = document.getElementById("guardar-favorito");
+if (guardarFavoritoBtn) {
+    guardarFavoritoBtn.addEventListener("click", () => {
+        const texto = document.getElementById("resultado").textContent;
+        if (texto) {
+            guardarFavorito(texto);
+        }
+    });
+}
 
 mostrarFavoritos();
 convertir(false);
