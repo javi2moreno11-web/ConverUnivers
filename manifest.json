@@ -2,11 +2,38 @@
   "name": "ConverUnivers",
   "short_name": "ConverUnivers",
   "description": "Conversor universal de monedas, temperatura, longitud, peso y mucho más.",
-  "start_url": "/",
+  "id": "https://converunivers.com/",
+  "start_url": "https://converunivers.com/?source=pwa",
+  "scope": "https://converunivers.com/",
   "display": "standalone",
   "background_color": "#0d1117",
   "theme_color": "#0d1117",
   "orientation": "portrait",
+  "categories": [
+    "utilities",
+    "productivity",
+    "finance"
+  ],
+  "shortcuts": [
+    {
+      "name": "Longitud",
+      "short_name": "Longitud",
+      "description": "Abrir el conversor de longitud",
+      "url": "https://converunivers.com/longitud.html"
+    },
+    {
+      "name": "Monedas",
+      "short_name": "Monedas",
+      "description": "Abrir el conversor de monedas",
+      "url": "https://converunivers.com/monedas.html"
+    },
+    {
+      "name": "Temperatura",
+      "short_name": "Temperatura",
+      "description": "Abrir el conversor de temperatura",
+      "url": "https://converunivers.com/temperatura.html"
+    }
+  ],
   "icons": [
     {
       "src": "icon-192.png",
