@@ -475,6 +475,61 @@ h1 {
     color: var(--text);
 }
 
+.resultado-zona {
+    text-align: left;
+}
+
+.resultado-zona-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    background: var(--surface-alt);
+    border: 1px solid var(--surface-border);
+    border-radius: 14px;
+}
+
+.resultado-zona-bloque {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.resultado-zona-etiqueta {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.resultado-zona-hora {
+    font-size: clamp(1.8rem, 4vw, 2.3rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+}
+
+.resultado-zona-ciudad {
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.resultado-zona-flecha {
+    font-size: 1.5rem;
+    line-height: 1;
+    text-align: center;
+    color: #7dd3fc;
+}
+
+.resultado-zona-meta {
+    display: grid;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--surface-border);
+    font-size: 0.98rem;
+}
+
 .historial {
     margin-top: 20px;
     text-align: left;

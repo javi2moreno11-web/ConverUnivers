@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta name="description" content="Compara y convierte zonas horarias para organizar horarios internacionales sin complicaciones.">
+    <meta name="description" content="Compara y convierte entre 24 zonas horarias mundiales para organizar horarios internacionales sin complicaciones.">
     <title>ConverUnivers | Conversor de Zonas Horarias</title>
     <link rel="canonical" href="https://converunivers.com/zonashorarias.html">
 
@@ -13,12 +13,12 @@
     <meta property="og:site_name" content="ConverUnivers">
     <meta property="og:locale" content="es_ES">
     <meta property="og:title" content="ConverUnivers | Conversor de Zonas Horarias">
-    <meta property="og:description" content="Compara y convierte zonas horarias para organizar horarios internacionales sin complicaciones.">
+    <meta property="og:description" content="Compara y convierte entre 24 zonas horarias mundiales para organizar horarios internacionales sin complicaciones.">
     <meta property="og:image" content="https://converunivers.com/favicon.png">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="ConverUnivers | Conversor de Zonas Horarias">
-    <meta name="twitter:description" content="Compara y convierte zonas horarias para organizar horarios internacionales sin complicaciones.">
+    <meta name="twitter:description" content="Compara y convierte entre 24 zonas horarias mundiales para organizar horarios internacionales sin complicaciones.">
     <meta name="twitter:image" content="https://converunivers.com/favicon.png">
 
     <script type="application/ld+json">
@@ -26,7 +26,7 @@
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "ConverUnivers | Conversor de Zonas Horarias",
-      "description": "Compara y convierte zonas horarias para organizar horarios internacionales sin complicaciones.",
+    "description": "Compara y convierte entre 24 zonas horarias mundiales para organizar horarios internacionales sin complicaciones.",
       "url": "https://converunivers.com/zonashorarias.html",
       "inLanguage": "es-ES"
     }
@@ -78,30 +78,16 @@
         <input type="time" id="cantidad" value="12:00">
 
         <label for="origen" class="campo-label">De</label>
-        <select id="origen">
-            <option value="UTC">🌐 UTC</option>
-            <option value="Madrid">🇪🇸 Madrid</option>
-            <option value="Londres">🇬🇧 Londres</option>
-            <option value="Nueva York">🇺🇸 Nueva York</option>
-            <option value="Los Ángeles">🇺🇸 Los Ángeles</option>
-            <option value="Tokio">🇯🇵 Tokio</option>
-        </select>
+        <select id="origen"></select>
 
         <div class="fila-invertir">
             <button type="button" class="boton-invertir" id="invertir-unidades" aria-label="Invertir unidades de conversión">🔁</button>
         </div>
 
         <label for="destino" class="campo-label">A</label>
-        <select id="destino">
-            <option value="Madrid">🇪🇸 Madrid</option>
-            <option value="UTC">🌐 UTC</option>
-            <option value="Londres">🇬🇧 Londres</option>
-            <option value="Nueva York">🇺🇸 Nueva York</option>
-            <option value="Los Ángeles">🇺🇸 Los Ángeles</option>
-            <option value="Tokio">🇯🇵 Tokio</option>
-        </select>
+        <select id="destino"></select>
 
-        <h2 id="resultado" aria-live="polite"></h2>
+        <section id="resultado" class="resultado resultado-zona" aria-live="polite"></section>
 
         <div class="historial">
             <p class="historial-titulo">Historial</p>
