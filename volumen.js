@@ -15,6 +15,22 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosVolumen = {
+    "Litro": "L",
+    "Mililitro": "mL",
+    "Centímetro cúbico": "cm³",
+    "Metro cúbico": "m³",
+    "Galón (US)": "gal"
+};
+
+function simbolo(nombre) {
+    return simbolosVolumen[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
 
     let cantidad = Number(document.getElementById("cantidad").value);
@@ -24,23 +40,21 @@ function convertir(guardarHistorial = true) {
 
     let litros;
 
-    if (origen === "Litros") litros = cantidad;
-    if (origen === "Mililitros") litros = cantidad / 1000;
-    if (origen === "CentÃ­metros cÃºbicos") litros = cantidad / 1000;
-    if (origen === "Metros cÃºbicos") litros = cantidad * 1000;
-    if (origen === "Galones (US)") litros = cantidad * 3.78541;
+    if (origen === "Litro") litros = cantidad;
+    if (origen === "Mililitro") litros = cantidad / 1000;
+    if (origen === "Centímetro cúbico") litros = cantidad / 1000;
+    if (origen === "Metro cúbico") litros = cantidad * 1000;
+    if (origen === "Galón (US)") litros = cantidad * 3.78541;
 
     let resultado;
 
-    if (destino === "Litros") resultado = litros;
-    if (destino === "Mililitros") resultado = litros * 1000;
-    if (destino === "CentÃ­metros cÃºbicos") resultado = litros * 1000;
-    if (destino === "Metros cÃºbicos") resultado = litros / 1000;
-    if (destino === "Galones (US)") resultado = litros / 3.78541;
+    if (destino === "Litro") resultado = litros;
+    if (destino === "Mililitro") resultado = litros * 1000;
+    if (destino === "Centímetro cúbico") resultado = litros * 1000;
+    if (destino === "Metro cúbico") resultado = litros / 1000;
+    if (destino === "Galón (US)") resultado = litros / 3.78541;
 
-    resultado = Number(resultado.toFixed(6));
-
-    const texto = cantidad + " " + origen + " = " + resultado + " " + destino;
+    const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
 
     if (guardarHistorial) {

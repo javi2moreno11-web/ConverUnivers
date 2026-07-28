@@ -89,4 +89,20 @@
     global.ConverUniversHistory = {
         createHistoryController
     };
+
+    function formatearNumero(numero, maximoDecimales = 10) {
+        if (typeof numero !== "number" || !Number.isFinite(numero)) {
+            return "—";
+        }
+
+        return new Intl.NumberFormat("es-ES", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: maximoDecimales,
+            useGrouping: false
+        }).format(numero);
+    }
+
+    global.ConverUniversFormato = {
+        formatearNumero
+    };
 })(window);

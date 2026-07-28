@@ -15,6 +15,22 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosEnergia = {
+    "Julio": "J",
+    "Kilojulio": "kJ",
+    "Caloría": "cal",
+    "Kilocaloría": "kcal",
+    "Vatio-hora": "Wh"
+};
+
+function simbolo(nombre) {
+    return simbolosEnergia[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
 
     const cantidad = Number(document.getElementById("cantidad").value);
@@ -38,9 +54,7 @@ function convertir(guardarHistorial = true) {
     if (destino === "Kilocaloría") resultado = julios / 4184;
     if (destino === "Vatio-hora") resultado = julios / 3600;
 
-    resultado = Number(resultado.toFixed(6));
-
-    const texto = `${cantidad} ${origen} = ${resultado} ${destino}`;
+    const texto = `${formatearNumero(cantidad)} ${simbolo(origen)} = ${formatearNumero(resultado)} ${simbolo(destino)}`;
 
     document.getElementById("resultado").textContent = texto;
 

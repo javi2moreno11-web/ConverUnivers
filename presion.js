@@ -15,6 +15,22 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosPresion = {
+    "Bar": "bar",
+    "Pascal": "Pa",
+    "Kilopascal": "kPa",
+    "PSI": "psi",
+    "Atmósfera": "atm"
+};
+
+function simbolo(nombre) {
+    return simbolosPresion[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
 
     const cantidad = Number(document.getElementById("cantidad").value);
@@ -38,9 +54,7 @@ function convertir(guardarHistorial = true) {
     if (destino === "PSI") resultado = pascales / 6894.76;
     if (destino === "Atmósfera") resultado = pascales / 101325;
 
-    resultado = Number(resultado.toFixed(6));
-
-    const texto = `${cantidad} ${origen} = ${resultado} ${destino}`;
+    const texto = `${formatearNumero(cantidad)} ${simbolo(origen)} = ${formatearNumero(resultado)} ${simbolo(destino)}`;
 
     document.getElementById("resultado").textContent = texto;
 

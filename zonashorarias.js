@@ -26,7 +26,7 @@ function convertir(guardarHistorial = true) {
         "Londres": 0,
         "Madrid": 1,
         "Nueva York": -5,
-        "Los Ãngeles": -8,
+        "Los Ángeles": -8,
         "Tokio": 9
     };
 

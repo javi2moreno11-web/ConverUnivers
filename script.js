@@ -1,12 +1,12 @@
 ﻿const monedasPopulares = [
-  { codigo: "EUR", nombre: "Euro", bandera: "ðŸ‡ªðŸ‡º" },
-  { codigo: "USD", nombre: "US Dollar", bandera: "ðŸ‡ºðŸ‡¸" },
-  { codigo: "GBP", nombre: "Pound Sterling", bandera: "ðŸ‡¬ðŸ‡§" },
-  { codigo: "JPY", nombre: "Japanese Yen", bandera: "ðŸ‡¯ðŸ‡µ" },
-  { codigo: "CAD", nombre: "Canadian Dollar", bandera: "ðŸ‡¨ðŸ‡¦" },
-  { codigo: "AUD", nombre: "Australian Dollar", bandera: "ðŸ‡¦ðŸ‡º" },
-  { codigo: "CHF", nombre: "Swiss Franc", bandera: "ðŸ‡¨ðŸ‡­" },
-  { codigo: "CNY", nombre: "Chinese Yuan", bandera: "ðŸ‡¨ðŸ‡³" }
+  { codigo: "EUR", nombre: "Euro", bandera: "🇪🇺" },
+  { codigo: "USD", nombre: "US Dollar", bandera: "🇺🇸" },
+  { codigo: "GBP", nombre: "Pound Sterling", bandera: "🇬🇧" },
+  { codigo: "JPY", nombre: "Japanese Yen", bandera: "🇯🇵" },
+  { codigo: "CAD", nombre: "Canadian Dollar", bandera: "🇨🇦" },
+  { codigo: "AUD", nombre: "Australian Dollar", bandera: "🇦🇺" },
+  { codigo: "CHF", nombre: "Swiss Franc", bandera: "🇨🇭" },
+  { codigo: "CNY", nombre: "Chinese Yuan", bandera: "🇨🇳" }
 ];
 
 const todasLasMonedas = [
@@ -45,38 +45,38 @@ const todasLasMonedas = [
 ];
 
 const infoMonedas = {
-    EUR: "ðŸ‡ªðŸ‡º Euro (EUR)",
-    USD: "ðŸ‡ºðŸ‡¸ US Dollar (USD)",
-    GBP: "ðŸ‡¬ðŸ‡§ Pound Sterling (GBP)",
-    JPY: "ðŸ‡¯ðŸ‡µ Japanese Yen (JPY)",
-    CAD: "ðŸ‡¨ðŸ‡¦ Canadian Dollar (CAD)",
-    AUD: "ðŸ‡¦ðŸ‡º Australian Dollar (AUD)",
-    CHF: "ðŸ‡¨ðŸ‡­ Swiss Franc (CHF)",
-    CNY: "ðŸ‡¨ðŸ‡³ Chinese Yuan (CNY)",
-    MXN: "ðŸ‡²ðŸ‡½ Mexican Peso (MXN)",
-    BRL: "ðŸ‡§ðŸ‡· Brazilian Real (BRL)",
-    ARS: "ðŸ‡¦ðŸ‡· Argentine Peso (ARS)",
-    CLP: "ðŸ‡¨ðŸ‡± Chilean Peso (CLP)",
-    COP: "ðŸ‡¨ðŸ‡´ Colombian Peso (COP)",
-    PEN: "ðŸ‡µðŸ‡ª Peruvian Sol (PEN)",
-    UYU: "ðŸ‡ºðŸ‡¾ Uruguayan Peso (UYU)",
-    PYG: "ðŸ‡µðŸ‡¾ Paraguayan GuaranÃ­ (PYG)",
-    BOB: "ðŸ‡§ðŸ‡´ Bolivian Boliviano (BOB)",
-    CRC: "ðŸ‡¨ðŸ‡· Costa Rican ColÃ³n (CRC)",
-    GTQ: "ðŸ‡¬ðŸ‡¹ Guatemalan Quetzal (GTQ)",
-    HNL: "ðŸ‡­ðŸ‡³ Honduran Lempira (HNL)",
-    NIO: "ðŸ‡³ðŸ‡® Nicaraguan CÃ³rdoba (NIO)",
-    DOP: "ðŸ‡©ðŸ‡´ Dominican Peso (DOP)",
-    AED: "ðŸ‡¦ðŸ‡ª UAE Dirham (AED)",
-    SAR: "ðŸ‡¸ðŸ‡¦ Saudi Riyal (SAR)",
-    TRY: "ðŸ‡¹ðŸ‡· Turkish Lira (TRY)",
-    RUB: "ðŸ‡·ðŸ‡º Russian Ruble (RUB)",
-    INR: "ðŸ‡®ðŸ‡³ Indian Rupee (INR)",
-    KRW: "ðŸ‡°ðŸ‡· South Korean Won (KRW)",
-    SGD: "ðŸ‡¸ðŸ‡¬ Singapore Dollar (SGD)",
-    HKD: "ðŸ‡­ðŸ‡° Hong Kong Dollar (HKD)",
-    NZD: "ðŸ‡³ðŸ‡¿ New Zealand Dollar (NZD)",
-    ZAR: "ðŸ‡¿ðŸ‡¦ South African Rand (ZAR)"
+    EUR: "🇪🇺 Euro (EUR)",
+    USD: "🇺🇸 US Dollar (USD)",
+    GBP: "🇬🇧 Pound Sterling (GBP)",
+    JPY: "🇯🇵 Japanese Yen (JPY)",
+    CAD: "🇨🇦 Canadian Dollar (CAD)",
+    AUD: "🇦🇺 Australian Dollar (AUD)",
+    CHF: "🇨🇭 Swiss Franc (CHF)",
+    CNY: "🇨🇳 Chinese Yuan (CNY)",
+    MXN: "🇲🇽 Mexican Peso (MXN)",
+    BRL: "🇧🇷 Brazilian Real (BRL)",
+    ARS: "🇦🇷 Argentine Peso (ARS)",
+    CLP: "🇨🇱 Chilean Peso (CLP)",
+    COP: "🇨🇴 Colombian Peso (COP)",
+    PEN: "🇵🇪 Peruvian Sol (PEN)",
+    UYU: "🇺🇾 Uruguayan Peso (UYU)",
+    PYG: "🇵🇾 Paraguayan Guaraní (PYG)",
+    BOB: "🇧🇴 Bolivian Boliviano (BOB)",
+    CRC: "🇨🇷 Costa Rican Colón (CRC)",
+    GTQ: "🇬🇹 Guatemalan Quetzal (GTQ)",
+    HNL: "🇭🇳 Honduran Lempira (HNL)",
+    NIO: "🇳🇮 Nicaraguan Córdoba (NIO)",
+    DOP: "🇩🇴 Dominican Peso (DOP)",
+    AED: "🇦🇪 UAE Dirham (AED)",
+    SAR: "🇸🇦 Saudi Riyal (SAR)",
+    TRY: "🇹🇷 Turkish Lira (TRY)",
+    RUB: "🇷🇺 Russian Ruble (RUB)",
+    INR: "🇮🇳 Indian Rupee (INR)",
+    KRW: "🇰🇷 South Korean Won (KRW)",
+    SGD: "🇸🇬 Singapore Dollar (SGD)",
+    HKD: "🇭🇰 Hong Kong Dollar (HKD)",
+    NZD: "🇳🇿 New Zealand Dollar (NZD)",
+    ZAR: "🇿🇦 South African Rand (ZAR)"
 };
 
 function cargarMonedas() {
@@ -120,6 +120,10 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
 async function convertir(guardarHistorial = true) {
     const cantidad = parseFloat(document.getElementById("cantidad").value);
     const origen = document.getElementById("origen").value;
@@ -144,8 +148,8 @@ async function convertir(guardarHistorial = true) {
             throw new Error("No hay cotización disponible para esa moneda");
         }
 
-        const resultado = (cantidad * tasa).toFixed(2);
-        const texto = `${cantidad} ${origen} = ${resultado} ${destino}`;
+        const resultado = formatearNumero(cantidad * tasa, 2);
+        const texto = `${formatearNumero(cantidad, 2)} ${origen} = ${resultado} ${destino}`;
         resultadoEl.textContent = texto;
 
         if (guardarHistorial) {

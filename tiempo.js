@@ -15,6 +15,24 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosTiempo = {
+    "Segundos": "s",
+    "Minutos": "min",
+    "Horas": "h",
+    "Días": "d",
+    "Semanas": "sem",
+    "Meses": "mes",
+    "Años": "año"
+};
+
+function simbolo(nombre) {
+    return simbolosTiempo[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
 
     const cantidad = parseFloat(document.getElementById("cantidad").value);
@@ -35,7 +53,7 @@ function convertir(guardarHistorial = true) {
         segundos = cantidad * 3600;
     }
 
-    if (origen === "DÃ­as") {
+    if (origen === "Días") {
         segundos = cantidad * 86400;
     }
 
@@ -47,7 +65,7 @@ function convertir(guardarHistorial = true) {
         segundos = cantidad * 2592000;
     }
 
-    if (origen === "AÃ±os") {
+    if (origen === "Años") {
         segundos = cantidad * 31536000;
     }
 
@@ -65,7 +83,7 @@ function convertir(guardarHistorial = true) {
         resultado = segundos / 3600;
     }
 
-    if (destino === "DÃ­as") {
+    if (destino === "Días") {
         resultado = segundos / 86400;
     }
 
@@ -77,11 +95,11 @@ function convertir(guardarHistorial = true) {
         resultado = segundos / 2592000;
     }
 
-    if (destino === "AÃ±os") {
+    if (destino === "Años") {
         resultado = segundos / 31536000;
     }
 
-    const texto = cantidad + " " + origen + " = " + resultado + " " + destino;
+    const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);

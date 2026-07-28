@@ -15,6 +15,22 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosAlmacenamiento = {
+    "Bytes": "B",
+    "KB": "KB",
+    "MB": "MB",
+    "GB": "GB",
+    "TB": "TB"
+};
+
+function simbolo(nombre) {
+    return simbolosAlmacenamiento[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
 
     const cantidad = parseFloat(document.getElementById("cantidad").value);
@@ -65,7 +81,7 @@ function convertir(guardarHistorial = true) {
         resultado = bytes / (1024 * 1024 * 1024 * 1024);
     }
 
-    const texto = cantidad + " " + origen + " = " + resultado + " " + destino;
+    const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);

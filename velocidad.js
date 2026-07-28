@@ -15,6 +15,21 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosVelocidad = {
+    "Metros por segundo": "m/s",
+    "Kilómetros por hora": "km/h",
+    "Millas por hora": "mph",
+    "Nudos": "kn"
+};
+
+function simbolo(nombre) {
+    return simbolosVelocidad[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
 
     const cantidad = parseFloat(document.getElementById("cantidad").value);
@@ -27,7 +42,7 @@ function convertir(guardarHistorial = true) {
         ms = cantidad;
     }
 
-    if (origen === "KilÃ³metros por hora") {
+    if (origen === "Kilómetros por hora") {
         ms = cantidad / 3.6;
     }
 
@@ -45,7 +60,7 @@ function convertir(guardarHistorial = true) {
         resultado = ms;
     }
 
-    if (destino === "KilÃ³metros por hora") {
+    if (destino === "Kilómetros por hora") {
         resultado = ms * 3.6;
     }
 
@@ -57,7 +72,7 @@ function convertir(guardarHistorial = true) {
         resultado = ms / 0.514444;
     }
 
-    const texto = cantidad + " " + origen + " = " + resultado.toFixed(4) + " " + destino;
+    const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);

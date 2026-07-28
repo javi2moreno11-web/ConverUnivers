@@ -15,6 +15,22 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosArea = {
+    "Metros cuadrados": "m²",
+    "Kilómetros cuadrados": "km²",
+    "Centímetros cuadrados": "cm²",
+    "Hectáreas": "ha",
+    "Acres": "ac"
+};
+
+function simbolo(nombre) {
+    return simbolosArea[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
 
     const cantidad = parseFloat(document.getElementById("cantidad").value);
@@ -27,15 +43,15 @@ function convertir(guardarHistorial = true) {
         metros2 = cantidad;
     }
 
-    if (origen === "KilÃ³metros cuadrados") {
+    if (origen === "Kilómetros cuadrados") {
         metros2 = cantidad * 1000000;
     }
 
-    if (origen === "CentÃ­metros cuadrados") {
+    if (origen === "Centímetros cuadrados") {
         metros2 = cantidad / 10000;
     }
 
-    if (origen === "HectÃ¡reas") {
+    if (origen === "Hectáreas") {
         metros2 = cantidad * 10000;
     }
 
@@ -49,15 +65,15 @@ function convertir(guardarHistorial = true) {
         resultado = metros2;
     }
 
-    if (destino === "KilÃ³metros cuadrados") {
+    if (destino === "Kilómetros cuadrados") {
         resultado = metros2 / 1000000;
     }
 
-    if (destino === "CentÃ­metros cuadrados") {
+    if (destino === "Centímetros cuadrados") {
         resultado = metros2 * 10000;
     }
 
-    if (destino === "HectÃ¡reas") {
+    if (destino === "Hectáreas") {
         resultado = metros2 / 10000;
     }
 
@@ -65,7 +81,7 @@ function convertir(guardarHistorial = true) {
         resultado = metros2 / 4046.8564224;
     }
 
-    const texto = cantidad + " " + origen + " = " + resultado + " " + destino;
+    const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);

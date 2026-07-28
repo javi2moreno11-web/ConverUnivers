@@ -1,11 +1,3 @@
-const criptosPopulares = [
-  { id: "bitcoin", codigo: "BTC", nombre: "Bitcoin" },
-  { id: "ethereum", codigo: "ETH", nombre: "Ethereum" },
-  { id: "binancecoin", codigo: "BNB", nombre: "BNB" },
-  { id: "solana", codigo: "SOL", nombre: "Solana" },
-  { id: "ripple", codigo: "XRP", nombre: "XRP" }
-];
-
 const todasLasCriptos = [
   "bitcoin",
   "ethereum",
@@ -50,28 +42,85 @@ const infoCriptos = {
     monero: "Monero (XMR)"
 };
 
-function cargarCriptos() {
+const todasLasMonedasFiat = [
+  "USD",
+  "EUR",
+  "GBP",
+  "JPY",
+  "CHF",
+  "CAD",
+  "AUD",
+  "CNY",
+  "MXN",
+  "BRL",
+  "ARS",
+  "INR"
+];
+
+const infoMonedasFiat = {
+    USD: "🇺🇸 US Dollar (USD)",
+    EUR: "🇪🇺 Euro (EUR)",
+    GBP: "🇬🇧 Pound Sterling (GBP)",
+    JPY: "🇯🇵 Japanese Yen (JPY)",
+    CHF: "🇨🇭 Swiss Franc (CHF)",
+    CAD: "🇨🇦 Canadian Dollar (CAD)",
+    AUD: "🇦🇺 Australian Dollar (AUD)",
+    CNY: "🇨🇳 Chinese Yuan (CNY)",
+    MXN: "🇲🇽 Mexican Peso (MXN)",
+    BRL: "🇧🇷 Brazilian Real (BRL)",
+    ARS: "🇦🇷 Argentine Peso (ARS)",
+    INR: "🇮🇳 Indian Rupee (INR)"
+};
+
+function esCripto(valor) {
+    return todasLasCriptos.includes(valor);
+}
+
+function obtenerCodigo(valor) {
+    if (esCripto(valor)) {
+        return (infoCriptos[valor] || valor).match(/\(([^)]+)\)/)?.[1] || valor;
+    }
+    return valor;
+}
+
+function crearOptgroup(select, etiqueta, valores, info) {
+    const grupo = document.createElement("optgroup");
+    grupo.label = etiqueta;
+
+    valores.forEach(valor => {
+        const opcion = document.createElement("option");
+        opcion.value = valor;
+        opcion.textContent = info[valor] || valor;
+        grupo.appendChild(opcion);
+    });
+
+    select.appendChild(grupo);
+}
+
+function cargarOpciones() {
 
     const origen = document.getElementById("origen");
     const destino = document.getElementById("destino");
 
-    todasLasCriptos.forEach(cripto => {
-
-        const opcionOrigen = document.createElement("option");
-        opcionOrigen.value = cripto;
-        opcionOrigen.textContent = infoCriptos[cripto] || cripto;
-
-        const opcionDestino = document.createElement("option");
-        opcionDestino.value = cripto;
-        opcionDestino.textContent = infoCriptos[cripto] || cripto;
-
-        origen.appendChild(opcionOrigen);
-        destino.appendChild(opcionDestino);
-
+    [origen, destino].forEach(select => {
+        crearOptgroup(select, "Criptomonedas", todasLasCriptos, infoCriptos);
+        crearOptgroup(select, "Monedas tradicionales", todasLasMonedasFiat, infoMonedasFiat);
     });
 
     origen.value = "bitcoin";
-    destino.value = "ethereum";
+    destino.value = "USD";
+}
+
+function corregirSeleccion(select, valorSeleccionado, defectoSiCripto, defectoSiFiat) {
+    if (esCripto(valorSeleccionado)) {
+        if (esCripto(select.value)) {
+            select.value = defectoSiCripto;
+        }
+    } else {
+        if (!esCripto(select.value)) {
+            select.value = defectoSiFiat;
+        }
+    }
 }
 
 const historial = window.ConverUniversHistory ? window.ConverUniversHistory.createHistoryController({
@@ -91,10 +140,16 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
 async function convertir(guardarHistorial = true) {
     const cantidad = parseFloat(document.getElementById("cantidad").value);
-    const origen = document.getElementById("origen").value;
-    const destino = document.getElementById("destino").value;
+    const origenSelect = document.getElementById("origen");
+    const destinoSelect = document.getElementById("destino");
+    const origen = origenSelect.value;
+    const destino = destinoSelect.value;
     const resultadoEl = document.getElementById("resultado");
 
     if (Number.isNaN(cantidad)) {
@@ -102,29 +157,40 @@ async function convertir(guardarHistorial = true) {
         return;
     }
 
+    const origenEsCripto = esCripto(origen);
+    const destinoEsCripto = esCripto(destino);
+
+    if (origenEsCripto === destinoEsCripto) {
+        resultadoEl.textContent = "Selecciona una criptomoneda y una moneda tradicional";
+        return;
+    }
+
+    const criptoId = origenEsCripto ? origen : destino;
+    const monedaFiat = (origenEsCripto ? destino : origen).toLowerCase();
+
     try {
         const respuesta = await fetch(
-            `https://api.coingecko.com/api/v3/simple/price?ids=${origen},${destino}&vs_currencies=usd`
+            `https://api.coingecko.com/api/v3/simple/price?ids=${criptoId}&vs_currencies=${monedaFiat}`
         );
         if (!respuesta.ok) {
             throw new Error("No se pudo cargar la cotización");
         }
 
         const datos = await respuesta.json();
-        const precioOrigen = datos[origen] ? datos[origen].usd : undefined;
-        const precioDestino = datos[destino] ? datos[destino].usd : undefined;
+        const precio = datos[criptoId] ? datos[criptoId][monedaFiat] : undefined;
 
-        if (typeof precioOrigen !== "number" || typeof precioDestino !== "number") {
+        if (typeof precio !== "number") {
             throw new Error("No se pudo obtener la cotización");
         }
 
-        const tasa = precioOrigen / precioDestino;
-        const resultado = (cantidad * tasa).toFixed(8);
+        const resultado = origenEsCripto
+            ? formatearNumero(cantidad * precio, 2)
+            : formatearNumero(cantidad / precio, 8);
 
-        const codigoOrigen = (infoCriptos[origen] || origen).match(/\(([^)]+)\)/)?.[1] || origen;
-        const codigoDestino = (infoCriptos[destino] || destino).match(/\(([^)]+)\)/)?.[1] || destino;
+        const codigoOrigen = obtenerCodigo(origen);
+        const codigoDestino = obtenerCodigo(destino);
 
-        const texto = `${cantidad} ${codigoOrigen} = ${resultado} ${codigoDestino}`;
+        const texto = `${formatearNumero(cantidad, 8)} ${codigoOrigen} = ${resultado} ${codigoDestino}`;
         resultadoEl.textContent = texto;
         if (guardarHistorial) {
             programarHistorial(texto);
@@ -135,8 +201,18 @@ async function convertir(guardarHistorial = true) {
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
-document.getElementById("origen").addEventListener("change", convertir);
-document.getElementById("destino").addEventListener("change", convertir);
+document.getElementById("origen").addEventListener("change", () => {
+    const origenSelect = document.getElementById("origen");
+    const destinoSelect = document.getElementById("destino");
+    corregirSeleccion(destinoSelect, origenSelect.value, "USD", "bitcoin");
+    convertir();
+});
+document.getElementById("destino").addEventListener("change", () => {
+    const origenSelect = document.getElementById("origen");
+    const destinoSelect = document.getElementById("destino");
+    corregirSeleccion(origenSelect, destinoSelect.value, "USD", "bitcoin");
+    convertir();
+});
 
-cargarCriptos();
+cargarOpciones();
 convertir(false);

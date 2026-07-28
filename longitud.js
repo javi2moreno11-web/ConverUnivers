@@ -15,6 +15,25 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosLongitud = {
+    "Metros": "m",
+    "Kilómetros": "km",
+    "Centímetros": "cm",
+    "Milímetros": "mm",
+    "Millas": "mi",
+    "Yardas": "yd",
+    "Pies": "ft",
+    "Pulgadas": "in"
+};
+
+function simbolo(nombre) {
+    return simbolosLongitud[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
 
     let cantidad = Number(document.getElementById("cantidad").value);
@@ -28,15 +47,15 @@ function convertir(guardarHistorial = true) {
         metros = cantidad;
     }
 
-    if (origen === "KilÃ³metros") {
+    if (origen === "Kilómetros") {
         metros = cantidad * 1000;
     }
 
-    if (origen === "CentÃ­metros") {
+    if (origen === "Centímetros") {
         metros = cantidad / 100;
     }
 
-    if (origen === "MilÃ­metros") {
+    if (origen === "Milímetros") {
         metros = cantidad / 1000;
     }
 
@@ -61,15 +80,15 @@ function convertir(guardarHistorial = true) {
         resultado = metros;
     }
 
-    if (destino === "KilÃ³metros") {
+    if (destino === "Kilómetros") {
         resultado = metros / 1000;
     }
 
-    if (destino === "CentÃ­metros") {
+    if (destino === "Centímetros") {
         resultado = metros * 100;
     }
 
-    if (destino === "MilÃ­metros") {
+    if (destino === "Milímetros") {
         resultado = metros * 1000;
     }
      if (destino === "Millas") {
@@ -87,7 +106,7 @@ if (destino === "Pies") {
 if (destino === "Pulgadas") {
     resultado = metros / 0.0254;
 }
-    const texto = cantidad + " " + origen + " = " + resultado + " " + destino;
+    const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);

@@ -15,6 +15,20 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosTemperatura = {
+    "Celsius": "°C",
+    "Fahrenheit": "°F",
+    "Kelvin": "K"
+};
+
+function simbolo(nombre) {
+    return simbolosTemperatura[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
     const cantidad = parseFloat(document.getElementById("cantidad").value);
     const origen = document.getElementById("origen").value;
@@ -51,7 +65,7 @@ function convertir(guardarHistorial = true) {
             resultado = celsius;
     }
 
-    const texto = `${resultado.toFixed(2)} ${destino}`;
+    const texto = `${formatearNumero(cantidad)} ${simbolo(origen)} = ${formatearNumero(resultado, 2)} ${simbolo(destino)}`;
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);

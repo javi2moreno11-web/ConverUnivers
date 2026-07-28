@@ -15,6 +15,25 @@ function programarHistorial(texto) {
     }, 400);
 }
 
+const formatearNumero = window.ConverUniversFormato
+    ? window.ConverUniversFormato.formatearNumero
+    : (numero) => String(numero);
+
+const simbolosPeso = {
+    "Kilogramos": "kg",
+    "Gramos": "g",
+    "Miligramos": "mg",
+    "Hectogramos": "hg",
+    "Decagramos": "dag",
+    "Toneladas": "t",
+    "Libras": "lb",
+    "Onzas": "oz"
+};
+
+function simbolo(nombre) {
+    return simbolosPeso[nombre] || nombre;
+}
+
 function convertir(guardarHistorial = true) {
 
     let cantidad = Number(document.getElementById("cantidad").value);
@@ -90,7 +109,7 @@ function convertir(guardarHistorial = true) {
         resultado = kilos / 0.0283495;
     }
 
-    const texto = cantidad + " " + origen + " = " + resultado + " " + destino;
+    const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);
