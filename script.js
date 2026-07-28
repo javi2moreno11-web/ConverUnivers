@@ -1,12 +1,12 @@
-const monedasPopulares = [
-  { codigo: "EUR", nombre: "Euro", bandera: "🇪🇺" },
-  { codigo: "USD", nombre: "US Dollar", bandera: "🇺🇸" },
-  { codigo: "GBP", nombre: "Pound Sterling", bandera: "🇬🇧" },
-  { codigo: "JPY", nombre: "Japanese Yen", bandera: "🇯🇵" },
-  { codigo: "CAD", nombre: "Canadian Dollar", bandera: "🇨🇦" },
-  { codigo: "AUD", nombre: "Australian Dollar", bandera: "🇦🇺" },
-  { codigo: "CHF", nombre: "Swiss Franc", bandera: "🇨🇭" },
-  { codigo: "CNY", nombre: "Chinese Yuan", bandera: "🇨🇳" }
+﻿const monedasPopulares = [
+  { codigo: "EUR", nombre: "Euro", bandera: "ðŸ‡ªðŸ‡º" },
+  { codigo: "USD", nombre: "US Dollar", bandera: "ðŸ‡ºðŸ‡¸" },
+  { codigo: "GBP", nombre: "Pound Sterling", bandera: "ðŸ‡¬ðŸ‡§" },
+  { codigo: "JPY", nombre: "Japanese Yen", bandera: "ðŸ‡¯ðŸ‡µ" },
+  { codigo: "CAD", nombre: "Canadian Dollar", bandera: "ðŸ‡¨ðŸ‡¦" },
+  { codigo: "AUD", nombre: "Australian Dollar", bandera: "ðŸ‡¦ðŸ‡º" },
+  { codigo: "CHF", nombre: "Swiss Franc", bandera: "ðŸ‡¨ðŸ‡­" },
+  { codigo: "CNY", nombre: "Chinese Yuan", bandera: "ðŸ‡¨ðŸ‡³" }
 ];
 
 const todasLasMonedas = [
@@ -45,38 +45,38 @@ const todasLasMonedas = [
 ];
 
 const infoMonedas = {
-    EUR: "🇪🇺 Euro (EUR)",
-    USD: "🇺🇸 US Dollar (USD)",
-    GBP: "🇬🇧 Pound Sterling (GBP)",
-    JPY: "🇯🇵 Japanese Yen (JPY)",
-    CAD: "🇨🇦 Canadian Dollar (CAD)",
-    AUD: "🇦🇺 Australian Dollar (AUD)",
-    CHF: "🇨🇭 Swiss Franc (CHF)",
-    CNY: "🇨🇳 Chinese Yuan (CNY)",
-    MXN: "🇲🇽 Mexican Peso (MXN)",
-    BRL: "🇧🇷 Brazilian Real (BRL)",
-    ARS: "🇦🇷 Argentine Peso (ARS)",
-    CLP: "🇨🇱 Chilean Peso (CLP)",
-    COP: "🇨🇴 Colombian Peso (COP)",
-    PEN: "🇵🇪 Peruvian Sol (PEN)",
-    UYU: "🇺🇾 Uruguayan Peso (UYU)",
-    PYG: "🇵🇾 Paraguayan Guaraní (PYG)",
-    BOB: "🇧🇴 Bolivian Boliviano (BOB)",
-    CRC: "🇨🇷 Costa Rican Colón (CRC)",
-    GTQ: "🇬🇹 Guatemalan Quetzal (GTQ)",
-    HNL: "🇭🇳 Honduran Lempira (HNL)",
-    NIO: "🇳🇮 Nicaraguan Córdoba (NIO)",
-    DOP: "🇩🇴 Dominican Peso (DOP)",
-    AED: "🇦🇪 UAE Dirham (AED)",
-    SAR: "🇸🇦 Saudi Riyal (SAR)",
-    TRY: "🇹🇷 Turkish Lira (TRY)",
-    RUB: "🇷🇺 Russian Ruble (RUB)",
-    INR: "🇮🇳 Indian Rupee (INR)",
-    KRW: "🇰🇷 South Korean Won (KRW)",
-    SGD: "🇸🇬 Singapore Dollar (SGD)",
-    HKD: "🇭🇰 Hong Kong Dollar (HKD)",
-    NZD: "🇳🇿 New Zealand Dollar (NZD)",
-    ZAR: "🇿🇦 South African Rand (ZAR)"
+    EUR: "ðŸ‡ªðŸ‡º Euro (EUR)",
+    USD: "ðŸ‡ºðŸ‡¸ US Dollar (USD)",
+    GBP: "ðŸ‡¬ðŸ‡§ Pound Sterling (GBP)",
+    JPY: "ðŸ‡¯ðŸ‡µ Japanese Yen (JPY)",
+    CAD: "ðŸ‡¨ðŸ‡¦ Canadian Dollar (CAD)",
+    AUD: "ðŸ‡¦ðŸ‡º Australian Dollar (AUD)",
+    CHF: "ðŸ‡¨ðŸ‡­ Swiss Franc (CHF)",
+    CNY: "ðŸ‡¨ðŸ‡³ Chinese Yuan (CNY)",
+    MXN: "ðŸ‡²ðŸ‡½ Mexican Peso (MXN)",
+    BRL: "ðŸ‡§ðŸ‡· Brazilian Real (BRL)",
+    ARS: "ðŸ‡¦ðŸ‡· Argentine Peso (ARS)",
+    CLP: "ðŸ‡¨ðŸ‡± Chilean Peso (CLP)",
+    COP: "ðŸ‡¨ðŸ‡´ Colombian Peso (COP)",
+    PEN: "ðŸ‡µðŸ‡ª Peruvian Sol (PEN)",
+    UYU: "ðŸ‡ºðŸ‡¾ Uruguayan Peso (UYU)",
+    PYG: "ðŸ‡µðŸ‡¾ Paraguayan GuaranÃ­ (PYG)",
+    BOB: "ðŸ‡§ðŸ‡´ Bolivian Boliviano (BOB)",
+    CRC: "ðŸ‡¨ðŸ‡· Costa Rican ColÃ³n (CRC)",
+    GTQ: "ðŸ‡¬ðŸ‡¹ Guatemalan Quetzal (GTQ)",
+    HNL: "ðŸ‡­ðŸ‡³ Honduran Lempira (HNL)",
+    NIO: "ðŸ‡³ðŸ‡® Nicaraguan CÃ³rdoba (NIO)",
+    DOP: "ðŸ‡©ðŸ‡´ Dominican Peso (DOP)",
+    AED: "ðŸ‡¦ðŸ‡ª UAE Dirham (AED)",
+    SAR: "ðŸ‡¸ðŸ‡¦ Saudi Riyal (SAR)",
+    TRY: "ðŸ‡¹ðŸ‡· Turkish Lira (TRY)",
+    RUB: "ðŸ‡·ðŸ‡º Russian Ruble (RUB)",
+    INR: "ðŸ‡®ðŸ‡³ Indian Rupee (INR)",
+    KRW: "ðŸ‡°ðŸ‡· South Korean Won (KRW)",
+    SGD: "ðŸ‡¸ðŸ‡¬ Singapore Dollar (SGD)",
+    HKD: "ðŸ‡­ðŸ‡° Hong Kong Dollar (HKD)",
+    NZD: "ðŸ‡³ðŸ‡¿ New Zealand Dollar (NZD)",
+    ZAR: "ðŸ‡¿ðŸ‡¦ South African Rand (ZAR)"
 };
 
 function cargarMonedas() {
@@ -103,102 +103,56 @@ function cargarMonedas() {
     destino.value = "USD";
 }
 
+const historial = window.ConverUniversHistory ? window.ConverUniversHistory.createHistoryController({
+    storageKey: "historialMonedas",
+    emptyText: "Sin registros a\u00fan",
+    listElement: document.getElementById("historial-lista"),
+    clearButtonElement: document.getElementById("limpiar-historial")
+}) : null;
 let historialTimeout;
 
 function programarHistorial(texto) {
     clearTimeout(historialTimeout);
     historialTimeout = setTimeout(() => {
-        actualizarHistorial(texto);
+        if (historial) {
+            historial.add(texto);
+        }
     }, 400);
 }
 
-function mostrarFavoritos() {
-    const favoritosLista = document.getElementById("favoritos-lista");
-    if (!favoritosLista) return;
-
-    const favoritos = JSON.parse(localStorage.getItem("favoritosMonedas") || "[]");
-    favoritosLista.innerHTML = "";
-
-    if (favoritos.length === 0) {
-        favoritosLista.innerHTML = '<li class="historial-vacio">No hay favoritos aún</li>';
-        return;
-    }
-
-    favoritos.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        favoritosLista.appendChild(li);
-    });
-}
-
-function guardarFavorito(texto) {
-    const favoritos = JSON.parse(localStorage.getItem("favoritosMonedas") || "[]");
-    if (!favoritos.includes(texto)) {
-        favoritos.unshift(texto);
-        localStorage.setItem("favoritosMonedas", JSON.stringify(favoritos.slice(0, 5)));
-    }
-    mostrarFavoritos();
-}
-
-function actualizarHistorial(texto) {
-    const historialLista = document.getElementById("historial-lista");
-    const limpiarBtn = document.getElementById("limpiar-historial");
-
-    if (!historialLista) return;
-
-    let historial = JSON.parse(localStorage.getItem("historialMonedas") || "[]");
-    historial.unshift(texto);
-    historial = historial.slice(0, 5);
-    localStorage.setItem("historialMonedas", JSON.stringify(historial));
-
-    historialLista.innerHTML = "";
-
-    if (historial.length === 0) {
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-        return;
-    }
-
-    historial.forEach(item => {
-        const li = document.createElement("li");
-        const textoSpan = document.createElement("span");
-        textoSpan.textContent = item;
-        const botonCopiar = document.createElement("button");
-        botonCopiar.type = "button";
-        botonCopiar.className = "boton-copiar";
-        botonCopiar.setAttribute("aria-label", "Copiar resultado");
-        botonCopiar.textContent = "📋";
-        botonCopiar.dataset.texto = item;
-        li.appendChild(textoSpan);
-        li.appendChild(botonCopiar);
-        historialLista.appendChild(li);
-    });
-
-    limpiarBtn.addEventListener("click", () => {
-        localStorage.removeItem("historialMonedas");
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-    });
-}
-
 async function convertir(guardarHistorial = true) {
-
-    const cantidad = document.getElementById("cantidad").value;
+    const cantidad = parseFloat(document.getElementById("cantidad").value);
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
+    const resultadoEl = document.getElementById("resultado");
 
-    const respuesta = await fetch(
-        `https://open.er-api.com/v6/latest/${origen}`
-    );
+    if (Number.isNaN(cantidad)) {
+        resultadoEl.textContent = "Introduce una cantidad válida";
+        return;
+    }
 
-    const datos = await respuesta.json();
+    try {
+        const respuesta = await fetch(`https://open.er-api.com/v6/latest/${origen}`);
+        if (!respuesta.ok) {
+            throw new Error("No se pudo cargar el tipo de cambio");
+        }
 
-    const tasa = datos.rates[destino];
+        const datos = await respuesta.json();
+        const tasa = datos.rates ? datos.rates[destino] : undefined;
 
-    const resultado = (cantidad * tasa).toFixed(2);
+        if (typeof tasa !== "number") {
+            throw new Error("No hay cotización disponible para esa moneda");
+        }
 
-    const texto = `${cantidad} ${origen} = ${resultado} ${destino}`;
-    document.getElementById("resultado").innerText = texto;
-    if (guardarHistorial) {
-        programarHistorial(texto);
+        const resultado = (cantidad * tasa).toFixed(2);
+        const texto = `${cantidad} ${origen} = ${resultado} ${destino}`;
+        resultadoEl.textContent = texto;
+
+        if (guardarHistorial) {
+            programarHistorial(texto);
+        }
+    } catch (error) {
+        resultadoEl.textContent = error.message;
     }
 }
 
@@ -207,15 +161,4 @@ document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
 
 cargarMonedas();
-const guardarFavoritoBtn = document.getElementById("guardar-favorito");
-if (guardarFavoritoBtn) {
-    guardarFavoritoBtn.addEventListener("click", () => {
-        const texto = document.getElementById("resultado").textContent;
-        if (texto) {
-            guardarFavorito(texto);
-        }
-    });
-}
-
-mostrarFavoritos();
 convertir(false);

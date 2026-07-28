@@ -74,115 +74,63 @@ function cargarCriptos() {
     destino.value = "ethereum";
 }
 
+const historial = window.ConverUniversHistory ? window.ConverUniversHistory.createHistoryController({
+    storageKey: "historialCriptomonedas",
+    emptyText: "Sin registros a\u00fan",
+    listElement: document.getElementById("historial-lista"),
+    clearButtonElement: document.getElementById("limpiar-historial")
+}) : null;
 let historialTimeout;
 
 function programarHistorial(texto) {
     clearTimeout(historialTimeout);
     historialTimeout = setTimeout(() => {
-        actualizarHistorial(texto);
+        if (historial) {
+            historial.add(texto);
+        }
     }, 400);
 }
 
-function mostrarFavoritos() {
-    const favoritosLista = document.getElementById("favoritos-lista");
-    if (!favoritosLista) return;
-
-    const favoritos = JSON.parse(localStorage.getItem("favoritosCriptomonedas") || "[]");
-    favoritosLista.innerHTML = "";
-
-    if (favoritos.length === 0) {
-        favoritosLista.innerHTML = '<li class="historial-vacio">No hay favoritos aún</li>';
-        return;
-    }
-
-    favoritos.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        favoritosLista.appendChild(li);
-    });
-}
-
-function guardarFavorito(texto) {
-    const favoritos = JSON.parse(localStorage.getItem("favoritosCriptomonedas") || "[]");
-    if (!favoritos.includes(texto)) {
-        favoritos.unshift(texto);
-        localStorage.setItem("favoritosCriptomonedas", JSON.stringify(favoritos.slice(0, 5)));
-    }
-    mostrarFavoritos();
-}
-
-function actualizarHistorial(texto) {
-    const historialLista = document.getElementById("historial-lista");
-    const limpiarBtn = document.getElementById("limpiar-historial");
-
-    if (!historialLista) return;
-
-    let historial = JSON.parse(localStorage.getItem("historialCriptomonedas") || "[]");
-    historial.unshift(texto);
-    historial = historial.slice(0, 5);
-    localStorage.setItem("historialCriptomonedas", JSON.stringify(historial));
-
-    historialLista.innerHTML = "";
-
-    if (historial.length === 0) {
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-        return;
-    }
-
-    historial.forEach(item => {
-        const li = document.createElement("li");
-        const textoSpan = document.createElement("span");
-        textoSpan.textContent = item;
-        const botonCopiar = document.createElement("button");
-        botonCopiar.type = "button";
-        botonCopiar.className = "boton-copiar";
-        botonCopiar.setAttribute("aria-label", "Copiar resultado");
-        botonCopiar.textContent = "📋";
-        botonCopiar.dataset.texto = item;
-        li.appendChild(textoSpan);
-        li.appendChild(botonCopiar);
-        historialLista.appendChild(li);
-    });
-
-    if (!limpiarBtn.dataset.bind) {
-        limpiarBtn.dataset.bind = "true";
-        limpiarBtn.addEventListener("click", () => {
-            localStorage.removeItem("historialCriptomonedas");
-            historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-        });
-    }
-}
-
 async function convertir(guardarHistorial = true) {
-
-    const cantidad = document.getElementById("cantidad").value;
+    const cantidad = parseFloat(document.getElementById("cantidad").value);
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
+    const resultadoEl = document.getElementById("resultado");
 
-    const respuesta = await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${origen},${destino}&vs_currencies=usd`
-    );
-
-    const datos = await respuesta.json();
-
-    const precioOrigen = datos[origen]?.usd;
-    const precioDestino = datos[destino]?.usd;
-
-    if (!precioOrigen || !precioDestino) {
-        document.getElementById("resultado").innerText = "No se pudo obtener la cotización";
+    if (Number.isNaN(cantidad)) {
+        resultadoEl.textContent = "Introduce una cantidad válida";
         return;
     }
 
-    const tasa = precioOrigen / precioDestino;
-    const resultado = (cantidad * tasa).toFixed(8);
+    try {
+        const respuesta = await fetch(
+            `https://api.coingecko.com/api/v3/simple/price?ids=${origen},${destino}&vs_currencies=usd`
+        );
+        if (!respuesta.ok) {
+            throw new Error("No se pudo cargar la cotización");
+        }
 
-    const codigoOrigen = (infoCriptos[origen] || origen).match(/\(([^)]+)\)/)?.[1] || origen;
-    const codigoDestino = (infoCriptos[destino] || destino).match(/\(([^)]+)\)/)?.[1] || destino;
+        const datos = await respuesta.json();
+        const precioOrigen = datos[origen] ? datos[origen].usd : undefined;
+        const precioDestino = datos[destino] ? datos[destino].usd : undefined;
 
-    const texto = `${cantidad} ${codigoOrigen} = ${resultado} ${codigoDestino}`;
-    document.getElementById("resultado").innerText = texto;
-    if (guardarHistorial) {
-        programarHistorial(texto);
+        if (typeof precioOrigen !== "number" || typeof precioDestino !== "number") {
+            throw new Error("No se pudo obtener la cotización");
+        }
+
+        const tasa = precioOrigen / precioDestino;
+        const resultado = (cantidad * tasa).toFixed(8);
+
+        const codigoOrigen = (infoCriptos[origen] || origen).match(/\(([^)]+)\)/)?.[1] || origen;
+        const codigoDestino = (infoCriptos[destino] || destino).match(/\(([^)]+)\)/)?.[1] || destino;
+
+        const texto = `${cantidad} ${codigoOrigen} = ${resultado} ${codigoDestino}`;
+        resultadoEl.textContent = texto;
+        if (guardarHistorial) {
+            programarHistorial(texto);
+        }
+    } catch (error) {
+        resultadoEl.textContent = error.message;
     }
 }
 
@@ -191,15 +139,4 @@ document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
 
 cargarCriptos();
-const guardarFavoritoBtn = document.getElementById("guardar-favorito");
-if (guardarFavoritoBtn) {
-    guardarFavoritoBtn.addEventListener("click", () => {
-        const texto = document.getElementById("resultado").textContent;
-        if (texto) {
-            guardarFavorito(texto);
-        }
-    });
-}
-
-mostrarFavoritos();
 convertir(false);

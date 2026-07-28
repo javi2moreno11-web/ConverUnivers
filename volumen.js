@@ -1,49 +1,18 @@
+﻿const historial = window.ConverUniversHistory ? window.ConverUniversHistory.createHistoryController({
+    storageKey: "historialVolumen",
+    emptyText: "Sin registros a\u00fan",
+    listElement: document.getElementById("historial-lista"),
+    clearButtonElement: document.getElementById("limpiar-historial")
+}) : null;
 let historialTimeout;
 
 function programarHistorial(texto) {
     clearTimeout(historialTimeout);
     historialTimeout = setTimeout(() => {
-        actualizarHistorial(texto);
+        if (historial) {
+            historial.add(texto);
+        }
     }, 400);
-}
-
-function actualizarHistorial(texto) {
-    const historialLista = document.getElementById("historial-lista");
-    const limpiarBtn = document.getElementById("limpiar-historial");
-
-    if (!historialLista) return;
-
-    let historial = JSON.parse(localStorage.getItem("historialVolumen") || "[]");
-    historial.unshift(texto);
-    historial = historial.slice(0, 5);
-    localStorage.setItem("historialVolumen", JSON.stringify(historial));
-
-    historialLista.innerHTML = "";
-
-    if (historial.length === 0) {
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-        return;
-    }
-
-    historial.forEach(item => {
-        const li = document.createElement("li");
-        const textoSpan = document.createElement("span");
-        textoSpan.textContent = item;
-        const botonCopiar = document.createElement("button");
-        botonCopiar.type = "button";
-        botonCopiar.className = "boton-copiar";
-        botonCopiar.setAttribute("aria-label", "Copiar resultado");
-        botonCopiar.textContent = "📋";
-        botonCopiar.dataset.texto = item;
-        li.appendChild(textoSpan);
-        li.appendChild(botonCopiar);
-        historialLista.appendChild(li);
-    });
-
-    limpiarBtn.addEventListener("click", () => {
-        localStorage.removeItem("historialVolumen");
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-    });
 }
 
 function convertir(guardarHistorial = true) {
@@ -57,16 +26,16 @@ function convertir(guardarHistorial = true) {
 
     if (origen === "Litros") litros = cantidad;
     if (origen === "Mililitros") litros = cantidad / 1000;
-    if (origen === "Centímetros cúbicos") litros = cantidad / 1000;
-    if (origen === "Metros cúbicos") litros = cantidad * 1000;
+    if (origen === "CentÃ­metros cÃºbicos") litros = cantidad / 1000;
+    if (origen === "Metros cÃºbicos") litros = cantidad * 1000;
     if (origen === "Galones (US)") litros = cantidad * 3.78541;
 
     let resultado;
 
     if (destino === "Litros") resultado = litros;
     if (destino === "Mililitros") resultado = litros * 1000;
-    if (destino === "Centímetros cúbicos") resultado = litros * 1000;
-    if (destino === "Metros cúbicos") resultado = litros / 1000;
+    if (destino === "CentÃ­metros cÃºbicos") resultado = litros * 1000;
+    if (destino === "Metros cÃºbicos") resultado = litros / 1000;
     if (destino === "Galones (US)") resultado = litros / 3.78541;
 
     resultado = Number(resultado.toFixed(6));

@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="description" content="Calculadora online gratuita con un diseño inspirado en la de Google: suma, resta, multiplica, divide y guarda un historial de tus operaciones.">
     <title>ConverUnivers | Calculadora Online</title>
     <link rel="canonical" href="https://converunivers.com/calculadora.html">
@@ -35,13 +36,14 @@
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
 <body>
+    <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
 
 <header class="site-header">
     <div class="header-inner">
         <a class="logo" href="index.html">ConverUnivers</a>
         <p class="tagline">Herramienta de conversiones rápidas</p>
     </div>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav" >
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav" aria-expanded="false" >
     <label for="nav-toggle" class="nav-toggle">
         <span></span>
         <span></span>
@@ -67,7 +69,7 @@
     </nav>
 </header>
 
-<main>
+<main id="contenido-principal">
     <section class="tarjeta tarjeta-calculadora" aria-labelledby="titulo-conversor">
         <h1 id="titulo-conversor" class="sr-only">Calculadora</h1>
 
@@ -117,9 +119,16 @@
     <p>© 2026 ConverUnivers · Conversor de unidades.</p>
 </footer>
 
-<script src="theme.js"></script>
-<script src="acciones.js"></script>
-<script src="calculadora.js"></script>
+<script src="converter-utils.js" defer></script>
+    <script src="theme.js" defer></script>
+<script src="acciones.js" defer></script>
+<script src="calculadora.js" defer></script>
 
 </body>
 </html>
+
+
+
+
+
+

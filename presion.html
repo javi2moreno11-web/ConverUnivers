@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="description" content="Convierte bares, pascales, kilopascales, psi y atmósferas con precisión.">
     <title>ConverUnivers | Conversor de Presión</title>
     <link rel="canonical" href="https://converunivers.com/presion.html">
@@ -35,6 +36,7 @@
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
 <body>
+    <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
 
 <header class="site-header">
     <div class="header-inner">
@@ -42,7 +44,7 @@
         <p class="tagline">Herramienta de conversiones rápidas</p>
     </div>
 
-    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav" aria-expanded="false">
 
     <label for="nav-toggle" class="nav-toggle">
         <span></span>
@@ -71,7 +73,7 @@
     </nav>
 </header>
 
-<main>
+<main id="contenido-principal">
     <section class="tarjeta" aria-labelledby="titulo-conversor">
 
         <h1 id="titulo-conversor" class="sr-only">Conversor de presión</h1>
@@ -118,9 +120,15 @@
     <p>© 2026 ConverUnivers · Conversor de unidades.</p>
 </footer>
 
-<script src="theme.js"></script>
-<script src="acciones.js"></script>
-<script src="presion.js"></script>
+<script src="converter-utils.js" defer></script>
+    <script src="theme.js" defer></script>
+<script src="acciones.js" defer></script>
+<script src="presion.js" defer></script>
 
 </body>
 </html>
+
+
+
+
+
