@@ -20,8 +20,14 @@ function guardarFavorito(texto) {
 function convertir(guardarHistorial = true) {
 
     const hora = document.getElementById("cantidad").value;
+    const resultadoEl = document.getElementById("resultado");
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
+
+    if (!/^\d{2}:\d{2}$/.test(hora)) {
+        resultadoEl.textContent = "Introduce una hora válida";
+        return;
+    }
 
     const zonas = {
         "UTC": 0,
@@ -49,7 +55,7 @@ function convertir(guardarHistorial = true) {
     let textoMinutos = minutos.toString().padStart(2, "0");
 
     const texto = hora + " (" + origen + ") = " + textoHora + ":" + textoMinutos + " (" + destino + ")";
-    document.getElementById("resultado").textContent = texto;
+    resultadoEl.textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);
     }

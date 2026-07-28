@@ -19,10 +19,16 @@ function guardarFavorito(texto) {
 
 function convertir(guardarHistorial = true) {
 
-    let cantidad = Number(document.getElementById("cantidad").value);
+    const cantidad = Number(document.getElementById("cantidad").value);
+    const resultadoEl = document.getElementById("resultado");
 
-    let origen = document.getElementById("origen").value;
-    let destino = document.getElementById("destino").value;
+    if (Number.isNaN(cantidad)) {
+        resultadoEl.textContent = "Introduce una cantidad válida";
+        return;
+    }
+
+    const origen = document.getElementById("origen").value;
+    const destino = document.getElementById("destino").value;
 
     let kilos;
 
@@ -93,7 +99,7 @@ function convertir(guardarHistorial = true) {
     }
 
     const texto = cantidad + " " + origen + " = " + resultado + " " + destino;
-    document.getElementById("resultado").textContent = texto;
+    resultadoEl.textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);
     }

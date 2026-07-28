@@ -9,6 +9,7 @@ function programarHistorial(texto) {
 function convertir(guardarHistorial = true) {
 
     const cantidad = Number(document.getElementById("cantidad").value);
+    const resultadoEl = document.getElementById("resultado");
 
     const origenSelect = document.getElementById("origen");
     const destinoSelect = document.getElementById("destino");
@@ -16,7 +17,7 @@ function convertir(guardarHistorial = true) {
     const destino = destinoSelect.value;
 
     if (Number.isNaN(cantidad)) {
-        document.getElementById("resultado").textContent = "";
+        resultadoEl.textContent = "Introduce una cantidad válida";
         return;
     }
 
@@ -41,7 +42,7 @@ function convertir(guardarHistorial = true) {
     const origenEtiqueta = origenSelect.selectedOptions[0]?.textContent || origen;
     const destinoEtiqueta = destinoSelect.selectedOptions[0]?.textContent || destino;
     const texto = `${cantidad} ${origenEtiqueta} = ${resultado} ${destinoEtiqueta}`;
-    document.getElementById("resultado").textContent = texto;
+    resultadoEl.textContent = texto;
 
     if (guardarHistorial) {
         programarHistorial(texto);

@@ -32,6 +32,34 @@ function ordenarTarjetasInicio() {
     tarjetas.forEach(tarjeta => contenedor.appendChild(tarjeta));
 }
 
+function filtrarTarjetasInicio() {
+    const buscador = document.getElementById("buscador-conversor");
+    if (!buscador) return;
+
+    const estado = document.getElementById("estado-busqueda");
+    const sinResultados = document.getElementById("sin-resultados-busqueda");
+    const termino = buscador.value.trim().toLowerCase();
+    const tarjetas = Array.from(document.querySelectorAll(".tarjeta-conversor"));
+
+    let visibles = 0;
+    tarjetas.forEach((tarjeta) => {
+        const texto = tarjeta.textContent.toLowerCase();
+        const coincide = termino === "" || texto.includes(termino);
+        tarjeta.hidden = !coincide;
+        if (coincide) visibles += 1;
+    });
+
+    if (sinResultados) {
+        sinResultados.hidden = visibles > 0;
+    }
+
+    if (estado) {
+        estado.textContent = termino === ""
+            ? "Mostrando todos los conversores"
+            : `Mostrando ${visibles} conversores`;
+    }
+}
+
 function actualizarBotonesEstrella() {
     document.querySelectorAll(".boton-estrella").forEach(btn => {
         const page = btn.getAttribute("data-page");
@@ -67,8 +95,15 @@ document.addEventListener("click", (event) => {
 window.addEventListener("load", () => {
     actualizarBotonesEstrella();
     ordenarTarjetasInicio();
+    filtrarTarjetasInicio();
 });
 window.addEventListener("storage", () => {
     actualizarBotonesEstrella();
     ordenarTarjetasInicio();
+    filtrarTarjetasInicio();
 });
+
+const buscadorConversor = document.getElementById("buscador-conversor");
+if (buscadorConversor) {
+    buscadorConversor.addEventListener("input", filtrarTarjetasInicio);
+}

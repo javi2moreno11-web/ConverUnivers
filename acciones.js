@@ -127,12 +127,87 @@
         });
     }
 
+    function injectSkipLink() {
+        const main = document.querySelector("main");
+        if (!main) {
+            return;
+        }
+
+        if (!main.id) {
+            main.id = "contenido-principal";
+        }
+
+        const existingSkipLink = document.querySelector(".skip-link");
+        if (existingSkipLink) {
+            return;
+        }
+
+        const skipLink = document.createElement("a");
+        skipLink.className = "skip-link";
+        skipLink.href = `#${main.id}`;
+        skipLink.textContent = "Saltar al contenido principal";
+        document.body.insertBefore(skipLink, document.body.firstChild);
+    }
+
+    function enhanceMobileNav() {
+        const navToggleInput = document.querySelector(".nav-toggle-input");
+        const mainNav = document.querySelector(".main-nav");
+        if (!navToggleInput || !mainNav) {
+            return;
+        }
+
+        function syncExpandedState() {
+            navToggleInput.setAttribute("aria-expanded", navToggleInput.checked ? "true" : "false");
+        }
+
+        syncExpandedState();
+        navToggleInput.addEventListener("change", syncExpandedState);
+
+        mainNav.addEventListener("click", (event) => {
+            if (!event.target.closest("a")) {
+                return;
+            }
+            navToggleInput.checked = false;
+            syncExpandedState();
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && navToggleInput.checked) {
+                navToggleInput.checked = false;
+                syncExpandedState();
+            }
+        });
+    }
+
+    async function fetchJson(url, options) {
+        const timeoutMs = options && Number.isFinite(options.timeoutMs) ? options.timeoutMs : 8000;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+        try {
+            const response = await fetch(url, {
+                signal: controller.signal
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error HTTP ${response.status}`);
+            }
+
+            return await response.json();
+        } finally {
+            clearTimeout(timeoutId);
+        }
+    }
+
     window.ConverUnivers = {
         createHistoryManager,
-        createFavoritesManager
+        createFavoritesManager,
+        fetchJson
     };
 
     markActiveNavLink();
+    injectSkipLink();
+    enhanceMobileNav();
 })();
 
 const invertirBtn = document.getElementById("invertir-unidades");

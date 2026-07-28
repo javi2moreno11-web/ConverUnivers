@@ -19,11 +19,12 @@ function guardarFavorito(texto) {
 
 function convertir(guardarHistorial = true) {
     const cantidad = parseFloat(document.getElementById("cantidad").value);
+    const resultadoEl = document.getElementById("resultado");
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
 
     if (isNaN(cantidad)) {
-        document.getElementById("resultado").textContent = "";
+        resultadoEl.textContent = "Introduce una cantidad válida";
         return;
     }
 
@@ -54,7 +55,7 @@ function convertir(guardarHistorial = true) {
     }
 
     const texto = `${resultado.toFixed(2)} ${destino}`;
-    document.getElementById("resultado").textContent = texto;
+    resultadoEl.textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);
     }

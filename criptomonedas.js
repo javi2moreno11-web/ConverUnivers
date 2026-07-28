@@ -1,11 +1,3 @@
-const criptosPopulares = [
-  { id: "bitcoin", codigo: "BTC", nombre: "Bitcoin" },
-  { id: "ethereum", codigo: "ETH", nombre: "Ethereum" },
-  { id: "binancecoin", codigo: "BNB", nombre: "BNB" },
-  { id: "solana", codigo: "SOL", nombre: "Solana" },
-  { id: "ripple", codigo: "XRP", nombre: "XRP" }
-];
-
 const todasLasCriptos = [
   "bitcoin",
   "ethereum",
@@ -75,6 +67,7 @@ function cargarCriptos() {
 }
 
 let conversionTimeout;
+let conversionRequestSeq = 0;
 const historyManager = window.ConverUnivers.createHistoryManager({
     storageKey: "historialCriptomonedas"
 });
@@ -95,6 +88,7 @@ function guardarFavorito(texto) {
 }
 
 async function convertir(guardarHistorial = true) {
+    const requestSeq = ++conversionRequestSeq;
 
     const cantidad = Number(document.getElementById("cantidad").value);
     const origen = document.getElementById("origen").value;
@@ -106,13 +100,16 @@ async function convertir(guardarHistorial = true) {
         return;
     }
 
-    try {
-        const respuesta = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${origen},${destino}&vs_currencies=usd`);
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP ${respuesta.status}`);
-        }
+    resultadoEl.textContent = "Actualizando cotización...";
 
-        const datos = await respuesta.json();
+    try {
+        const datos = await window.ConverUnivers.fetchJson(
+            `https://api.coingecko.com/api/v3/simple/price?ids=${origen},${destino}&vs_currencies=usd`,
+            { timeoutMs: 9000 }
+        );
+        if (requestSeq !== conversionRequestSeq) {
+            return;
+        }
         const precioOrigen = datos?.[origen]?.usd;
         const precioDestino = datos?.[destino]?.usd;
 
@@ -133,6 +130,9 @@ async function convertir(guardarHistorial = true) {
             programarHistorial(texto);
         }
     } catch (error) {
+        if (requestSeq !== conversionRequestSeq) {
+            return;
+        }
         resultadoEl.textContent = "No se pudo actualizar la cotización. Inténtalo de nuevo.";
         console.error("Error al convertir criptomonedas:", error);
     }

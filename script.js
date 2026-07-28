@@ -1,14 +1,3 @@
-const monedasPopulares = [
-  { codigo: "EUR", nombre: "Euro", bandera: "🇪🇺" },
-  { codigo: "USD", nombre: "US Dollar", bandera: "🇺🇸" },
-  { codigo: "GBP", nombre: "Pound Sterling", bandera: "🇬🇧" },
-  { codigo: "JPY", nombre: "Japanese Yen", bandera: "🇯🇵" },
-  { codigo: "CAD", nombre: "Canadian Dollar", bandera: "🇨🇦" },
-  { codigo: "AUD", nombre: "Australian Dollar", bandera: "🇦🇺" },
-  { codigo: "CHF", nombre: "Swiss Franc", bandera: "🇨🇭" },
-  { codigo: "CNY", nombre: "Chinese Yuan", bandera: "🇨🇳" }
-];
-
 const todasLasMonedas = [
   "EUR",
   "USD",
@@ -104,6 +93,7 @@ function cargarMonedas() {
 }
 
 let conversionTimeout;
+let conversionRequestSeq = 0;
 const historyManager = window.ConverUnivers.createHistoryManager({
     storageKey: "historialMonedas"
 });
@@ -124,6 +114,7 @@ function guardarFavorito(texto) {
 }
 
 async function convertir(guardarHistorial = true) {
+    const requestSeq = ++conversionRequestSeq;
     const cantidad = Number(document.getElementById("cantidad").value);
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
@@ -134,13 +125,16 @@ async function convertir(guardarHistorial = true) {
         return;
     }
 
-    try {
-        const respuesta = await fetch(`https://open.er-api.com/v6/latest/${origen}`);
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP ${respuesta.status}`);
-        }
+    resultadoEl.textContent = "Actualizando cotización...";
 
-        const datos = await respuesta.json();
+    try {
+        const datos = await window.ConverUnivers.fetchJson(
+            `https://open.er-api.com/v6/latest/${origen}`,
+            { timeoutMs: 8000 }
+        );
+        if (requestSeq !== conversionRequestSeq) {
+            return;
+        }
         const tasa = datos?.rates?.[destino];
         if (!Number.isFinite(tasa)) {
             resultadoEl.textContent = "No se pudo obtener la cotización";
@@ -154,6 +148,9 @@ async function convertir(guardarHistorial = true) {
             programarHistorial(texto);
         }
     } catch (error) {
+        if (requestSeq !== conversionRequestSeq) {
+            return;
+        }
         resultadoEl.textContent = "No se pudo actualizar la cotización. Inténtalo de nuevo.";
         console.error("Error al convertir monedas:", error);
     }

@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="description" content="ConverUnivers reúne conversores online de medidas, monedas, tiempo y más para realizar conversiones rápidas y precisas desde cualquier dispositivo.">
     <title>ConverUnivers | Conversores Online de Medidas, Moneda y Tiempo</title>
 
@@ -70,6 +72,12 @@
 
     <main>
         <h1 class="sr-only">ConverUnivers: conversores online de medidas, moneda y tiempo</h1>
+        <section class="tarjeta tarjeta-destacada" aria-labelledby="busqueda-conversores-titulo">
+            <h2 id="busqueda-conversores-titulo">Encuentra tu conversor</h2>
+            <label for="buscador-conversor" class="campo-label">Buscar conversión</label>
+            <input type="search" id="buscador-conversor" placeholder="Ej.: temperatura, monedas, energía" autocomplete="off">
+            <p id="estado-busqueda" class="sr-only" aria-live="polite"></p>
+        </section>
         <div class="tarjeta tarjeta-conversor">
             <button class="boton-estrella" data-page="longitud.html" aria-label="Marcar longitud como favorito" type="button"><span aria-hidden="true">☆</span></button>
             <a href="longitud.html"><span aria-hidden="true">📏</span> Longitud</a>
@@ -126,6 +134,7 @@
             <button class="boton-estrella" data-page="calculadora.html" aria-label="Marcar calculadora como favorito" type="button"><span aria-hidden="true">☆</span></button>
             <a href="calculadora.html"><span aria-hidden="true">🧮</span> Calculadora</a>
         </div>
+        <p id="sin-resultados-busqueda" class="historial-vacio" hidden>No hay conversores que coincidan con tu búsqueda.</p>
     </main>
 
     <footer class="site-footer">
