@@ -1,77 +1,46 @@
-let historialTimeout;
+const historyManager = window.ConverUnivers.createHistoryManager({
+    storageKey: "historialVolumen"
+});
 
 function programarHistorial(texto) {
-    clearTimeout(historialTimeout);
-    historialTimeout = setTimeout(() => {
-        actualizarHistorial(texto);
-    }, 400);
-}
-
-function actualizarHistorial(texto) {
-    const historialLista = document.getElementById("historial-lista");
-    const limpiarBtn = document.getElementById("limpiar-historial");
-
-    if (!historialLista) return;
-
-    let historial = JSON.parse(localStorage.getItem("historialVolumen") || "[]");
-    historial.unshift(texto);
-    historial = historial.slice(0, 5);
-    localStorage.setItem("historialVolumen", JSON.stringify(historial));
-
-    historialLista.innerHTML = "";
-
-    if (historial.length === 0) {
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-        return;
-    }
-
-    historial.forEach(item => {
-        const li = document.createElement("li");
-        const textoSpan = document.createElement("span");
-        textoSpan.textContent = item;
-        const botonCopiar = document.createElement("button");
-        botonCopiar.type = "button";
-        botonCopiar.className = "boton-copiar";
-        botonCopiar.setAttribute("aria-label", "Copiar resultado");
-        botonCopiar.textContent = "📋";
-        botonCopiar.dataset.texto = item;
-        li.appendChild(textoSpan);
-        li.appendChild(botonCopiar);
-        historialLista.appendChild(li);
-    });
-
-    limpiarBtn.addEventListener("click", () => {
-        localStorage.removeItem("historialVolumen");
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-    });
+    historyManager.schedule(texto);
 }
 
 function convertir(guardarHistorial = true) {
 
-    let cantidad = Number(document.getElementById("cantidad").value);
+    const cantidad = Number(document.getElementById("cantidad").value);
 
-    let origen = document.getElementById("origen").value;
-    let destino = document.getElementById("destino").value;
+    const origenSelect = document.getElementById("origen");
+    const destinoSelect = document.getElementById("destino");
+    const origen = origenSelect.value;
+    const destino = destinoSelect.value;
+
+    if (Number.isNaN(cantidad)) {
+        document.getElementById("resultado").textContent = "";
+        return;
+    }
 
     let litros;
 
-    if (origen === "Litros") litros = cantidad;
-    if (origen === "Mililitros") litros = cantidad / 1000;
-    if (origen === "Centímetros cúbicos") litros = cantidad / 1000;
-    if (origen === "Metros cúbicos") litros = cantidad * 1000;
-    if (origen === "Galones (US)") litros = cantidad * 3.78541;
+    if (origen === "litro") litros = cantidad;
+    if (origen === "mililitro") litros = cantidad / 1000;
+    if (origen === "centimetro-cubico") litros = cantidad / 1000;
+    if (origen === "metro-cubico") litros = cantidad * 1000;
+    if (origen === "galon-us") litros = cantidad * 3.78541;
 
     let resultado;
 
-    if (destino === "Litros") resultado = litros;
-    if (destino === "Mililitros") resultado = litros * 1000;
-    if (destino === "Centímetros cúbicos") resultado = litros * 1000;
-    if (destino === "Metros cúbicos") resultado = litros / 1000;
-    if (destino === "Galones (US)") resultado = litros / 3.78541;
+    if (destino === "litro") resultado = litros;
+    if (destino === "mililitro") resultado = litros * 1000;
+    if (destino === "centimetro-cubico") resultado = litros * 1000;
+    if (destino === "metro-cubico") resultado = litros / 1000;
+    if (destino === "galon-us") resultado = litros / 3.78541;
 
     resultado = Number(resultado.toFixed(6));
 
-    const texto = cantidad + " " + origen + " = " + resultado + " " + destino;
+    const origenEtiqueta = origenSelect.selectedOptions[0]?.textContent || origen;
+    const destinoEtiqueta = destinoSelect.selectedOptions[0]?.textContent || destino;
+    const texto = `${cantidad} ${origenEtiqueta} = ${resultado} ${destinoEtiqueta}`;
     document.getElementById("resultado").textContent = texto;
 
     if (guardarHistorial) {

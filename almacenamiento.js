@@ -1,77 +1,20 @@
-let historialTimeout;
+const historyManager = window.ConverUnivers.createHistoryManager({
+    storageKey: "historialAlmacenamiento"
+});
+const favoritesManager = window.ConverUnivers.createFavoritesManager({
+    storageKey: "favoritosAlmacenamiento"
+});
 
 function programarHistorial(texto) {
-    clearTimeout(historialTimeout);
-    historialTimeout = setTimeout(() => {
-        actualizarHistorial(texto);
-    }, 400);
+    historyManager.schedule(texto);
 }
 
 function mostrarFavoritos() {
-    const favoritosLista = document.getElementById("favoritos-lista");
-    if (!favoritosLista) return;
-
-    const favoritos = JSON.parse(localStorage.getItem("favoritosAlmacenamiento") || "[]");
-    favoritosLista.innerHTML = "";
-
-    if (favoritos.length === 0) {
-        favoritosLista.innerHTML = '<li class="historial-vacio">No hay favoritos aún</li>';
-        return;
-    }
-
-    favoritos.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        favoritosLista.appendChild(li);
-    });
+    favoritesManager.render();
 }
 
 function guardarFavorito(texto) {
-    const favoritos = JSON.parse(localStorage.getItem("favoritosAlmacenamiento") || "[]");
-    if (!favoritos.includes(texto)) {
-        favoritos.unshift(texto);
-        localStorage.setItem("favoritosAlmacenamiento", JSON.stringify(favoritos.slice(0, 5)));
-    }
-    mostrarFavoritos();
-}
-
-function actualizarHistorial(texto) {
-    const historialLista = document.getElementById("historial-lista");
-    const limpiarBtn = document.getElementById("limpiar-historial");
-
-    if (!historialLista) return;
-
-    let historial = JSON.parse(localStorage.getItem("historialAlmacenamiento") || "[]");
-    historial.unshift(texto);
-    historial = historial.slice(0, 5);
-    localStorage.setItem("historialAlmacenamiento", JSON.stringify(historial));
-
-    historialLista.innerHTML = "";
-
-    if (historial.length === 0) {
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-        return;
-    }
-
-    historial.forEach(item => {
-        const li = document.createElement("li");
-        const textoSpan = document.createElement("span");
-        textoSpan.textContent = item;
-        const botonCopiar = document.createElement("button");
-        botonCopiar.type = "button";
-        botonCopiar.className = "boton-copiar";
-        botonCopiar.setAttribute("aria-label", "Copiar resultado");
-        botonCopiar.textContent = "📋";
-        botonCopiar.dataset.texto = item;
-        li.appendChild(textoSpan);
-        li.appendChild(botonCopiar);
-        historialLista.appendChild(li);
-    });
-
-    limpiarBtn.addEventListener("click", () => {
-        localStorage.removeItem("historialAlmacenamiento");
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-    });
+    favoritesManager.add(texto);
 }
 
 function convertir(guardarHistorial = true) {
