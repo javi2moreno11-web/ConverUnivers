@@ -1,47 +1,9 @@
-let historialTimeout;
+const historyManager = window.ConverUnivers.createHistoryManager({
+    storageKey: "historialEnergia"
+});
 
 function programarHistorial(texto) {
-    clearTimeout(historialTimeout);
-    historialTimeout = setTimeout(() => actualizarHistorial(texto), 400);
-}
-
-function actualizarHistorial(texto) {
-    const historialLista = document.getElementById("historial-lista");
-    const limpiarBtn = document.getElementById("limpiar-historial");
-
-    if (!historialLista) return;
-
-    let historial = JSON.parse(localStorage.getItem("historialEnergia") || "[]");
-    historial.unshift(texto);
-    historial = historial.slice(0, 5);
-
-    localStorage.setItem("historialEnergia", JSON.stringify(historial));
-
-    historialLista.innerHTML = "";
-
-    historial.forEach(item => {
-        const li = document.createElement("li");
-        const textoSpan = document.createElement("span");
-        textoSpan.textContent = item;
-        const botonCopiar = document.createElement("button");
-        botonCopiar.type = "button";
-        botonCopiar.className = "boton-copiar";
-        botonCopiar.setAttribute("aria-label", "Copiar resultado");
-        botonCopiar.textContent = "📋";
-        botonCopiar.dataset.texto = item;
-        li.appendChild(textoSpan);
-        li.appendChild(botonCopiar);
-        historialLista.appendChild(li);
-    });
-
-    if (historial.length === 0) {
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-    }
-
-    limpiarBtn.onclick = () => {
-        localStorage.removeItem("historialEnergia");
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-    };
+    historyManager.schedule(texto);
 }
 
 function convertir(guardarHistorial = true) {

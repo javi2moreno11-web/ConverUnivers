@@ -139,6 +139,13 @@ video {
     text-decoration: none !important;
 }
 
+.main-nav a[aria-current="page"] {
+    color: var(--link-hover);
+    background: rgba(125, 211, 252, 0.16);
+    border-radius: 999px;
+    padding: 6px 10px;
+}
+
 body.light-mode {
     --link-color: #334155;
     --link-hover: #111827;
@@ -614,6 +621,22 @@ h1 {
 
 .tecla-igual:hover {
     background: #2563eb;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .tarjeta:hover,
+    .boton-invertir:hover,
+    .tecla-calc:active {
+        transform: none;
+    }
 }
 
 @media (max-width: 900px) {

@@ -103,106 +103,68 @@ function cargarMonedas() {
     destino.value = "USD";
 }
 
-let historialTimeout;
+let conversionTimeout;
+const historyManager = window.ConverUnivers.createHistoryManager({
+    storageKey: "historialMonedas"
+});
+const favoritesManager = window.ConverUnivers.createFavoritesManager({
+    storageKey: "favoritosMonedas"
+});
 
 function programarHistorial(texto) {
-    clearTimeout(historialTimeout);
-    historialTimeout = setTimeout(() => {
-        actualizarHistorial(texto);
-    }, 400);
+    historyManager.schedule(texto);
 }
 
 function mostrarFavoritos() {
-    const favoritosLista = document.getElementById("favoritos-lista");
-    if (!favoritosLista) return;
-
-    const favoritos = JSON.parse(localStorage.getItem("favoritosMonedas") || "[]");
-    favoritosLista.innerHTML = "";
-
-    if (favoritos.length === 0) {
-        favoritosLista.innerHTML = '<li class="historial-vacio">No hay favoritos aún</li>';
-        return;
-    }
-
-    favoritos.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        favoritosLista.appendChild(li);
-    });
+    favoritesManager.render();
 }
 
 function guardarFavorito(texto) {
-    const favoritos = JSON.parse(localStorage.getItem("favoritosMonedas") || "[]");
-    if (!favoritos.includes(texto)) {
-        favoritos.unshift(texto);
-        localStorage.setItem("favoritosMonedas", JSON.stringify(favoritos.slice(0, 5)));
-    }
-    mostrarFavoritos();
-}
-
-function actualizarHistorial(texto) {
-    const historialLista = document.getElementById("historial-lista");
-    const limpiarBtn = document.getElementById("limpiar-historial");
-
-    if (!historialLista) return;
-
-    let historial = JSON.parse(localStorage.getItem("historialMonedas") || "[]");
-    historial.unshift(texto);
-    historial = historial.slice(0, 5);
-    localStorage.setItem("historialMonedas", JSON.stringify(historial));
-
-    historialLista.innerHTML = "";
-
-    if (historial.length === 0) {
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-        return;
-    }
-
-    historial.forEach(item => {
-        const li = document.createElement("li");
-        const textoSpan = document.createElement("span");
-        textoSpan.textContent = item;
-        const botonCopiar = document.createElement("button");
-        botonCopiar.type = "button";
-        botonCopiar.className = "boton-copiar";
-        botonCopiar.setAttribute("aria-label", "Copiar resultado");
-        botonCopiar.textContent = "📋";
-        botonCopiar.dataset.texto = item;
-        li.appendChild(textoSpan);
-        li.appendChild(botonCopiar);
-        historialLista.appendChild(li);
-    });
-
-    limpiarBtn.addEventListener("click", () => {
-        localStorage.removeItem("historialMonedas");
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-    });
+    favoritesManager.add(texto);
 }
 
 async function convertir(guardarHistorial = true) {
-
-    const cantidad = document.getElementById("cantidad").value;
+    const cantidad = Number(document.getElementById("cantidad").value);
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
+    const resultadoEl = document.getElementById("resultado");
 
-    const respuesta = await fetch(
-        `https://open.er-api.com/v6/latest/${origen}`
-    );
+    if (Number.isNaN(cantidad)) {
+        resultadoEl.textContent = "Introduce una cantidad válida";
+        return;
+    }
 
-    const datos = await respuesta.json();
+    try {
+        const respuesta = await fetch(`https://open.er-api.com/v6/latest/${origen}`);
+        if (!respuesta.ok) {
+            throw new Error(`Error HTTP ${respuesta.status}`);
+        }
 
-    const tasa = datos.rates[destino];
+        const datos = await respuesta.json();
+        const tasa = datos?.rates?.[destino];
+        if (!Number.isFinite(tasa)) {
+            resultadoEl.textContent = "No se pudo obtener la cotización";
+            return;
+        }
 
-    const resultado = (cantidad * tasa).toFixed(2);
-
-    const texto = `${cantidad} ${origen} = ${resultado} ${destino}`;
-    document.getElementById("resultado").innerText = texto;
-    if (guardarHistorial) {
-        programarHistorial(texto);
+        const resultado = (cantidad * tasa).toFixed(2);
+        const texto = `${cantidad} ${origen} = ${resultado} ${destino}`;
+        resultadoEl.textContent = texto;
+        if (guardarHistorial) {
+            programarHistorial(texto);
+        }
+    } catch (error) {
+        resultadoEl.textContent = "No se pudo actualizar la cotización. Inténtalo de nuevo.";
+        console.error("Error al convertir monedas:", error);
     }
 }
 
-document.getElementById("cantidad").addEventListener("input", convertir);
+function programarConversion() {
+    clearTimeout(conversionTimeout);
+    conversionTimeout = setTimeout(() => convertir(), 220);
+}
+
+document.getElementById("cantidad").addEventListener("input", programarConversion);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
 

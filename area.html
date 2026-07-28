@@ -60,19 +60,22 @@
         <a href="almacenamiento.html">Almacenamiento</a>
         <a href="velocidad.html">Velocidad</a>
         <a href="area.html">Área</a>
+        <a href="volumen.html">Volumen</a>
+        <a href="presion.html">Presión</a>
+        <a href="energia.html">Energía</a>
         <a href="calculadora.html">Calculadora</a>
     </nav>
 </header>
 
 <main>
 
-    <div class="tarjeta">
+    <section class="tarjeta" aria-labelledby="titulo-conversor">
 
         <h1 id="titulo-conversor" class="sr-only">Conversor de área</h1>
-        <p>Área</p>
-        <input type="number" id="cantidad" value="1">
+        <label for="cantidad" class="campo-label">Área</label>
+        <input type="number" id="cantidad" value="1" inputmode="decimal" autocomplete="off">
 
-        <p>De</p>
+        <label for="origen" class="campo-label">De</label>
         <select id="origen">
             <option>Metros cuadrados</option>
             <option>Kilómetros cuadrados</option>
@@ -85,7 +88,7 @@
             <button type="button" class="boton-invertir" id="invertir-unidades" aria-label="Invertir unidades de conversión">🔁</button>
         </div>
 
-        <p>A</p>
+        <label for="destino" class="campo-label">A</label>
         <select id="destino">
             <option>Kilómetros cuadrados</option>
             <option>Metros cuadrados</option>
@@ -94,15 +97,15 @@
             <option>Acres</option>
         </select>
 
-        <h2 id="resultado"></h2>
+        <h2 id="resultado" aria-live="polite"></h2>
 
-        <div class="historial">
-            <p class="historial-titulo">Historial</p>
+        <section class="historial" aria-labelledby="historial-titulo">
+            <h2 id="historial-titulo" class="historial-titulo">Historial</h2>
             <ul id="historial-lista" class="historial-lista"></ul>
-            <button type="button" class="boton-limpiar" id="limpiar-historial">Limpiar</button>
-        </div>
+            <button type="button" class="boton-limpiar" id="limpiar-historial" aria-label="Limpiar historial">Limpiar</button>
+        </section>
 
-    </div>
+    </section>
 
 </main>
 
