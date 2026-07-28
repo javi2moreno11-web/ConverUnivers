@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="description" content="Compara y convierte zonas horarias para organizar horarios internacionales sin complicaciones.">
     <title>ConverUnivers | Conversor de Zonas Horarias</title>
     <link rel="canonical" href="https://converunivers.com/zonashorarias.html">
@@ -35,13 +36,14 @@
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
 <body>
+    <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
 
 <header class="site-header">
     <div class="header-inner">
         <a class="logo" href="index.html">ConverUnivers</a>
         <p class="tagline">Herramienta de conversiones rápidas</p>
     </div>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav" aria-expanded="false">
     <label for="nav-toggle" class="nav-toggle">
         <span></span>
         <span></span>
@@ -60,19 +62,22 @@
         <a href="almacenamiento.html">Almacenamiento</a>
         <a href="velocidad.html">Velocidad</a>
         <a href="area.html">Área</a>
+        <a href="volumen.html">Volumen</a>
+        <a href="presion.html">Presión</a>
+        <a href="energia.html">Energía</a>
         <a href="calculadora.html">Calculadora</a>
     </nav>
 </header>
 
-<main>
+<main id="contenido-principal">
 
     <div class="tarjeta">
 
         <h1 id="titulo-conversor" class="sr-only">Conversor de zonas horarias</h1>
-        <p>Hora</p>
+        <label for="cantidad" class="campo-label">Hora</label>
         <input type="time" id="cantidad" value="12:00">
 
-        <p>De</p>
+        <label for="origen" class="campo-label">De</label>
         <select id="origen">
             <option value="UTC">🌐 UTC</option>
             <option value="Madrid">🇪🇸 Madrid</option>
@@ -86,7 +91,7 @@
             <button type="button" class="boton-invertir" id="invertir-unidades" aria-label="Invertir unidades de conversión">🔁</button>
         </div>
 
-        <p>A</p>
+        <label for="destino" class="campo-label">A</label>
         <select id="destino">
             <option value="Madrid">🇪🇸 Madrid</option>
             <option value="UTC">🌐 UTC</option>
@@ -96,7 +101,7 @@
             <option value="Tokio">🇯🇵 Tokio</option>
         </select>
 
-        <h2 id="resultado"></h2>
+        <h2 id="resultado" aria-live="polite"></h2>
 
         <div class="historial">
             <p class="historial-titulo">Historial</p>
@@ -112,9 +117,16 @@
     <p>© 2026 ConverUnivers · Conversor de unidades.</p>
 </footer>
 
-<script src="theme.js"></script>
-<script src="acciones.js"></script>
-<script src="zonashorarias.js"></script>
+<script src="converter-utils.js" defer></script>
+    <script src="theme.js" defer></script>
+<script src="acciones.js" defer></script>
+<script src="zonashorarias.js" defer></script>
 
 </body>
 </html>
+
+
+
+
+
+

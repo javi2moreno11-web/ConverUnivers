@@ -18,7 +18,7 @@ function ordenarTarjetasInicio() {
     if (tarjetas.length === 0) return;
 
     const favoritos = JSON.parse(localStorage.getItem("favoritosConversores") || "[]");
-    const contenedor = document.querySelector("main");
+    const contenedor = document.querySelector(".conversores-grid") || document.querySelector("main");
 
     tarjetas.sort((a, b) => {
         const aFav = favoritos.includes(a.querySelector(".boton-estrella").getAttribute("data-page"));

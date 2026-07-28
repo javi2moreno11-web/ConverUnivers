@@ -1,77 +1,18 @@
+﻿const historial = window.ConverUniversHistory ? window.ConverUniversHistory.createHistoryController({
+    storageKey: "historialVelocidad",
+    emptyText: "Sin registros a\u00fan",
+    listElement: document.getElementById("historial-lista"),
+    clearButtonElement: document.getElementById("limpiar-historial")
+}) : null;
 let historialTimeout;
 
 function programarHistorial(texto) {
     clearTimeout(historialTimeout);
     historialTimeout = setTimeout(() => {
-        actualizarHistorial(texto);
+        if (historial) {
+            historial.add(texto);
+        }
     }, 400);
-}
-
-function mostrarFavoritos() {
-    const favoritosLista = document.getElementById("favoritos-lista");
-    if (!favoritosLista) return;
-
-    const favoritos = JSON.parse(localStorage.getItem("favoritosVelocidad") || "[]");
-    favoritosLista.innerHTML = "";
-
-    if (favoritos.length === 0) {
-        favoritosLista.innerHTML = '<li class="historial-vacio">No hay favoritos aún</li>';
-        return;
-    }
-
-    favoritos.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        favoritosLista.appendChild(li);
-    });
-}
-
-function guardarFavorito(texto) {
-    const favoritos = JSON.parse(localStorage.getItem("favoritosVelocidad") || "[]");
-    if (!favoritos.includes(texto)) {
-        favoritos.unshift(texto);
-        localStorage.setItem("favoritosVelocidad", JSON.stringify(favoritos.slice(0, 5)));
-    }
-    mostrarFavoritos();
-}
-
-function actualizarHistorial(texto) {
-    const historialLista = document.getElementById("historial-lista");
-    const limpiarBtn = document.getElementById("limpiar-historial");
-
-    if (!historialLista) return;
-
-    let historial = JSON.parse(localStorage.getItem("historialVelocidad") || "[]");
-    historial.unshift(texto);
-    historial = historial.slice(0, 5);
-    localStorage.setItem("historialVelocidad", JSON.stringify(historial));
-
-    historialLista.innerHTML = "";
-
-    if (historial.length === 0) {
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-        return;
-    }
-
-    historial.forEach(item => {
-        const li = document.createElement("li");
-        const textoSpan = document.createElement("span");
-        textoSpan.textContent = item;
-        const botonCopiar = document.createElement("button");
-        botonCopiar.type = "button";
-        botonCopiar.className = "boton-copiar";
-        botonCopiar.setAttribute("aria-label", "Copiar resultado");
-        botonCopiar.textContent = "📋";
-        botonCopiar.dataset.texto = item;
-        li.appendChild(textoSpan);
-        li.appendChild(botonCopiar);
-        historialLista.appendChild(li);
-    });
-
-    limpiarBtn.addEventListener("click", () => {
-        localStorage.removeItem("historialVelocidad");
-        historialLista.innerHTML = '<li class="historial-vacio">Sin registros aún</li>';
-    });
 }
 
 function convertir(guardarHistorial = true) {
@@ -86,7 +27,7 @@ function convertir(guardarHistorial = true) {
         ms = cantidad;
     }
 
-    if (origen === "Kilómetros por hora") {
+    if (origen === "KilÃ³metros por hora") {
         ms = cantidad / 3.6;
     }
 
@@ -104,7 +45,7 @@ function convertir(guardarHistorial = true) {
         resultado = ms;
     }
 
-    if (destino === "Kilómetros por hora") {
+    if (destino === "KilÃ³metros por hora") {
         resultado = ms * 3.6;
     }
 
@@ -126,15 +67,4 @@ function convertir(guardarHistorial = true) {
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
-const guardarFavoritoBtn = document.getElementById("guardar-favorito");
-if (guardarFavoritoBtn) {
-    guardarFavoritoBtn.addEventListener("click", () => {
-        const texto = document.getElementById("resultado").textContent;
-        if (texto) {
-            guardarFavorito(texto);
-        }
-    });
-}
-
-mostrarFavoritos();
 convertir(false);

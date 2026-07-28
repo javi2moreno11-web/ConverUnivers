@@ -1,8 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="description" content="ConverUnivers reúne conversores online de medidas, monedas, tiempo y más para realizar conversiones rápidas y precisas desde cualquier dispositivo.">
     <title>ConverUnivers | Conversores Online de Medidas, Moneda y Tiempo</title>
 
@@ -36,13 +37,14 @@
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
 <body>
+    <a class="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
 
     <header class="site-header">
         <div class="header-inner">
             <a class="logo" href="index.html">ConverUnivers</a>
             <p class="tagline">El universo de las conversiones</p>
         </div>
-        <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú">
+        <input type="checkbox" id="nav-toggle" class="nav-toggle-input" aria-label="Mostrar menú" aria-controls="main-nav" aria-expanded="false">
         <label for="nav-toggle" class="nav-toggle">
             <span></span>
             <span></span>
@@ -50,90 +52,126 @@
         </label>
         <button type="button" class="theme-toggle" aria-label="Cambiar tema">🌙</button>
         <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
-            <a href="index.html">Inicio</a>
-            <a href="longitud.html">Longitud</a>
-            <a href="peso.html">Peso</a>
-            <a href="temperatura.html">Temperatura</a>
-            <a href="monedas.html">Monedas</a>
-            <a href="criptomonedas.html">Criptomonedas</a>
-            <a href="tiempo.html">Tiempo</a>
-            <a href="zonashorarias.html">Zonas</a>
-            <a href="almacenamiento.html">Almacenamiento</a>
-            <a href="velocidad.html">Velocidad</a>
-            <a href="area.html">Área</a>
-            <a href="volumen.html">Volumen</a>
-            <a href="presion.html">Presión</a>
-            <a href="energia.html">Energía</a>
-            <a href="calculadora.html">Calculadora</a>
-        </nav>
+        <a href="index.html">Inicio</a>
+        <a href="longitud.html">Longitud</a>
+        <a href="peso.html">Peso</a>
+        <a href="temperatura.html">Temperatura</a>
+        <a href="monedas.html">Monedas</a>
+        <a href="criptomonedas.html">Criptomonedas</a>
+        <a href="tiempo.html">Tiempo</a>
+        <a href="zonashorarias.html">Zonas</a>
+        <a href="almacenamiento.html">Almacenamiento</a>
+        <a href="velocidad.html">Velocidad</a>
+        <a href="area.html">Área</a>
+        <a href="volumen.html">Volumen</a>
+        <a href="presion.html">Presión</a>
+        <a href="energia.html">Energía</a>
+        <a href="calculadora.html">Calculadora</a>
+    </nav>
     </header>
 
-    <main>
-        <h1 class="sr-only">ConverUnivers: conversores online de medidas, moneda y tiempo</h1>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="longitud.html" aria-label="Marcar longitud como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="longitud.html"><span aria-hidden="true">📏</span> Longitud</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="peso.html" aria-label="Marcar peso como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="peso.html"><span aria-hidden="true">⚖️</span> Peso</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="temperatura.html" aria-label="Marcar temperatura como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="temperatura.html"><span aria-hidden="true">🌡️</span> Temperatura</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="monedas.html" aria-label="Marcar monedas como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="monedas.html"><span aria-hidden="true">💰</span> Monedas</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="criptomonedas.html" aria-label="Marcar criptomonedas como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="criptomonedas.html"><span aria-hidden="true">₿</span> Criptomonedas</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="tiempo.html" aria-label="Marcar tiempo como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="tiempo.html"><span aria-hidden="true">⏱️</span> Tiempo</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="zonashorarias.html" aria-label="Marcar zonas horarias como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="zonashorarias.html"><span aria-hidden="true">🌍</span> Zonas Horarias</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="almacenamiento.html" aria-label="Marcar almacenamiento como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="almacenamiento.html"><span aria-hidden="true">💾</span> Almacenamiento</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="velocidad.html" aria-label="Marcar velocidad como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="velocidad.html"><span aria-hidden="true">🚗</span> Velocidad</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="area.html" aria-label="Marcar área como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="area.html"><span aria-hidden="true">📐</span> Área</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="volumen.html" aria-label="Marcar volumen como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="volumen.html"><span aria-hidden="true">🧪</span> Volumen</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="presion.html" aria-label="Marcar presión como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="presion.html"><span aria-hidden="true">🎈</span> Presión</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="energia.html" aria-label="Marcar energía como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="energia.html"><span aria-hidden="true">⚡</span> Energía</a>
-        </div>
-        <div class="tarjeta tarjeta-conversor">
-            <button class="boton-estrella" data-page="calculadora.html" aria-label="Marcar calculadora como favorito" type="button"><span aria-hidden="true">☆</span></button>
-            <a href="calculadora.html"><span aria-hidden="true">🧮</span> Calculadora</a>
-        </div>
+    <main id="contenido-principal" class="page-home">
+        <section class="tarjeta home-hero" aria-labelledby="home-title">
+            <div class="home-hero__content">
+                <p class="eyebrow">Herramientas modernas</p>
+                <h1 id="home-title">Convierte unidades, monedas y tiempos sin perder claridad</h1>
+                <p>ConverUnivers reúne conversores rápidos, accesibles y preparados para móvil para que cada cálculo sea más sencillo y profesional.</p>
+                <div class="home-hero__actions">
+                    <a class="boton-hero" href="longitud.html">Probar longitud</a>
+                    <a class="boton-hero boton-hero--secondary" href="monedas.html">Ver monedas</a>
+                </div>
+            </div>
+            <div class="home-hero__stats" aria-label="Indicadores del sitio">
+                <div class="stat-pill">
+                    <strong>14+</strong>
+                    <span>Conversores</span>
+                </div>
+                <div class="stat-pill">
+                    <strong>100%</strong>
+                    <span>Responsive</span>
+                </div>
+                <div class="stat-pill">
+                    <strong>WCAG</strong>
+                    <span>Accesible</span>
+                </div>
+                <div class="stat-pill">
+                    <strong>SEO</strong>
+                    <span>Optimizado</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="conversores-grid" aria-label="Catálogo de conversores">
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="longitud.html" aria-label="Marcar longitud como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="longitud.html"><span aria-hidden="true">📏</span> Longitud</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="peso.html" aria-label="Marcar peso como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="peso.html"><span aria-hidden="true">⚖️</span> Peso</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="temperatura.html" aria-label="Marcar temperatura como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="temperatura.html"><span aria-hidden="true">🌡️</span> Temperatura</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="monedas.html" aria-label="Marcar monedas como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="monedas.html"><span aria-hidden="true">💰</span> Monedas</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="criptomonedas.html" aria-label="Marcar criptomonedas como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="criptomonedas.html"><span aria-hidden="true">₿</span> Criptomonedas</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="tiempo.html" aria-label="Marcar tiempo como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="tiempo.html"><span aria-hidden="true">⏱️</span> Tiempo</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="zonashorarias.html" aria-label="Marcar zonas horarias como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="zonashorarias.html"><span aria-hidden="true">🌍</span> Zonas Horarias</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="almacenamiento.html" aria-label="Marcar almacenamiento como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="almacenamiento.html"><span aria-hidden="true">💾</span> Almacenamiento</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="velocidad.html" aria-label="Marcar velocidad como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="velocidad.html"><span aria-hidden="true">🚗</span> Velocidad</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="area.html" aria-label="Marcar área como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="area.html"><span aria-hidden="true">📐</span> Área</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="volumen.html" aria-label="Marcar volumen como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="volumen.html"><span aria-hidden="true">🧪</span> Volumen</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="presion.html" aria-label="Marcar presión como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="presion.html"><span aria-hidden="true">🎈</span> Presión</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="energia.html" aria-label="Marcar energía como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="energia.html"><span aria-hidden="true">⚡</span> Energía</a>
+            </div>
+            <div class="tarjeta tarjeta-conversor">
+                <button class="boton-estrella" data-page="calculadora.html" aria-label="Marcar calculadora como favorito" type="button"><span aria-hidden="true">☆</span></button>
+                <a href="calculadora.html"><span aria-hidden="true">🧮</span> Calculadora</a>
+            </div>
+        </section>
     </main>
 
     <footer class="site-footer">
         <p>© 2026 ConverUnivers · Conversor de unidades.</p>
     </footer>
 
-    <script src="theme.js"></script>
-    <script src="inicio.js"></script>
+    <script src="theme.js" defer></script>
+    <script src="inicio.js" defer></script>
 
 </body>
 </html>
+
+
+
+
+

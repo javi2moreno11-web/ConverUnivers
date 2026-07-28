@@ -35,6 +35,22 @@ document.addEventListener("click", async (event) => {
             boton.disabled = false;
         }, 1200);
     } catch (error) {
-        window.prompt("Copia el resultado:", texto);
+        const auxiliar = document.createElement("textarea");
+        auxiliar.value = texto;
+        auxiliar.setAttribute("readonly", "");
+        auxiliar.style.position = "fixed";
+        auxiliar.style.opacity = "0";
+        document.body.appendChild(auxiliar);
+        auxiliar.select();
+        document.execCommand("copy");
+        document.body.removeChild(auxiliar);
+
+        const iconoOriginal = boton.textContent;
+        boton.textContent = "✅";
+        boton.disabled = true;
+        setTimeout(() => {
+            boton.textContent = iconoOriginal;
+            boton.disabled = false;
+        }, 1200);
     }
 });
