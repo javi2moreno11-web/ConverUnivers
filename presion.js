@@ -19,12 +19,30 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
+const factoresPresion = {
+    "Pascal (Pa)": 1,
+    "Kilopascal (kPa)": 1000,
+    "Megapascal (MPa)": 1000000,
+    "Bar": 100000,
+    "Milibar (mbar)": 100,
+    "Atmósfera (atm)": 101325,
+    "PSI (lb/in²)": 6894.757293168,
+    "Torr": 101325 / 760,
+    "mmHg (milímetros de mercurio)": 133.322387415,
+    "kgf/cm²": 98066.5
+};
+
 const simbolosPresion = {
+    "Pascal (Pa)": "Pa",
+    "Kilopascal (kPa)": "kPa",
+    "Megapascal (MPa)": "MPa",
     "Bar": "bar",
-    "Pascal": "Pa",
-    "Kilopascal": "kPa",
-    "PSI": "psi",
-    "Atmósfera": "atm"
+    "Milibar (mbar)": "mbar",
+    "Atmósfera (atm)": "atm",
+    "PSI (lb/in²)": "psi",
+    "Torr": "Torr",
+    "mmHg (milímetros de mercurio)": "mmHg",
+    "kgf/cm²": "kgf/cm²"
 };
 
 function simbolo(nombre) {
@@ -38,21 +56,8 @@ function convertir(guardarHistorial = true) {
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
 
-    let pascales;
-
-    if (origen === "Bar") pascales = cantidad * 100000;
-    if (origen === "Pascal") pascales = cantidad;
-    if (origen === "Kilopascal") pascales = cantidad * 1000;
-    if (origen === "PSI") pascales = cantidad * 6894.76;
-    if (origen === "Atmósfera") pascales = cantidad * 101325;
-
-    let resultado;
-
-    if (destino === "Bar") resultado = pascales / 100000;
-    if (destino === "Pascal") resultado = pascales;
-    if (destino === "Kilopascal") resultado = pascales / 1000;
-    if (destino === "PSI") resultado = pascales / 6894.76;
-    if (destino === "Atmósfera") resultado = pascales / 101325;
+    const pascales = cantidad * factoresPresion[origen];
+    const resultado = pascales / factoresPresion[destino];
 
     const texto = `${formatearNumero(cantidad)} ${simbolo(origen)} = ${formatearNumero(resultado)} ${simbolo(destino)}`;
 
