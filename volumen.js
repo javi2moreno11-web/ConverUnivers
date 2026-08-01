@@ -19,17 +19,20 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
-const simbolosVolumen = {
-    "Litro": "L",
-    "Mililitro": "mL",
-    "Centímetro cúbico": "cm³",
-    "Metro cúbico": "m³",
-    "Galón (US)": "gal"
-};
+const conversoresApi = window.ConverUniversConversores;
+const configVolumen = conversoresApi ? conversoresApi.registro.volumen : null;
+const simbolosVolumen = configVolumen ? configVolumen.simbolos : {};
 
 function simbolo(nombre) {
     return simbolosVolumen[nombre] || nombre;
 }
+
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
 
 function convertir(guardarHistorial = true) {
 
@@ -38,21 +41,8 @@ function convertir(guardarHistorial = true) {
     let origen = document.getElementById("origen").value;
     let destino = document.getElementById("destino").value;
 
-    let litros;
-
-    if (origen === "Litro") litros = cantidad;
-    if (origen === "Mililitro") litros = cantidad / 1000;
-    if (origen === "Centímetro cúbico") litros = cantidad / 1000;
-    if (origen === "Metro cúbico") litros = cantidad * 1000;
-    if (origen === "Galón (US)") litros = cantidad * 3.78541;
-
-    let resultado;
-
-    if (destino === "Litro") resultado = litros;
-    if (destino === "Mililitro") resultado = litros * 1000;
-    if (destino === "Centímetro cúbico") resultado = litros * 1000;
-    if (destino === "Metro cúbico") resultado = litros / 1000;
-    if (destino === "Galón (US)") resultado = litros / 3.78541;
+    const factores = configVolumen.factores;
+    const resultado = conversoresApi.convertirPorFactor(cantidad, origen, destino, factores);
 
     const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
@@ -60,10 +50,22 @@ function convertir(guardarHistorial = true) {
     if (guardarHistorial) {
         programarHistorial(texto);
     }
+
+    if (panelDetalle) {
+        panelDetalle.actualizar({
+            explicacion: conversoresApi.generarExplicacionFactor(cantidad, origen, destino, resultado, configVolumen.nombre, simbolosVolumen, formatearNumero),
+            formula: conversoresApi.generarFormulaFactor(origen, destino, factores),
+            factor: conversoresApi.generarFactorConversion(origen, destino, factores, simbolosVolumen, formatearNumero),
+            filas: conversoresApi.construirEquivalencias(cantidad * factores[origen], factores, simbolosVolumen, formatearNumero)
+        });
+    }
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
 
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);

@@ -19,17 +19,20 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
-const simbolosEnergia = {
-    "Julio": "J",
-    "Kilojulio": "kJ",
-    "Caloría": "cal",
-    "Kilocaloría": "kcal",
-    "Vatio-hora": "Wh"
-};
+const conversoresApi = window.ConverUniversConversores;
+const configEnergia = conversoresApi ? conversoresApi.registro.energia : null;
+const simbolosEnergia = configEnergia ? configEnergia.simbolos : {};
 
 function simbolo(nombre) {
     return simbolosEnergia[nombre] || nombre;
 }
+
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
 
 function convertir(guardarHistorial = true) {
 
@@ -38,21 +41,8 @@ function convertir(guardarHistorial = true) {
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
 
-    let julios;
-
-    if (origen === "Julio") julios = cantidad;
-    if (origen === "Kilojulio") julios = cantidad * 1000;
-    if (origen === "Caloría") julios = cantidad * 4.184;
-    if (origen === "Kilocaloría") julios = cantidad * 4184;
-    if (origen === "Vatio-hora") julios = cantidad * 3600;
-
-    let resultado;
-
-    if (destino === "Julio") resultado = julios;
-    if (destino === "Kilojulio") resultado = julios / 1000;
-    if (destino === "Caloría") resultado = julios / 4.184;
-    if (destino === "Kilocaloría") resultado = julios / 4184;
-    if (destino === "Vatio-hora") resultado = julios / 3600;
+    const factores = configEnergia.factores;
+    const resultado = conversoresApi.convertirPorFactor(cantidad, origen, destino, factores);
 
     const texto = `${formatearNumero(cantidad)} ${simbolo(origen)} = ${formatearNumero(resultado)} ${simbolo(destino)}`;
 
@@ -61,10 +51,22 @@ function convertir(guardarHistorial = true) {
     if (guardarHistorial) {
         programarHistorial(texto);
     }
+
+    if (panelDetalle) {
+        panelDetalle.actualizar({
+            explicacion: conversoresApi.generarExplicacionFactor(cantidad, origen, destino, resultado, configEnergia.nombre, simbolosEnergia, formatearNumero),
+            formula: conversoresApi.generarFormulaFactor(origen, destino, factores),
+            factor: conversoresApi.generarFactorConversion(origen, destino, factores, simbolosEnergia, formatearNumero),
+            filas: conversoresApi.construirEquivalencias(cantidad * factores[origen], factores, simbolosEnergia, formatearNumero)
+        });
+    }
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
 
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);

@@ -9,75 +9,13 @@
   { codigo: "CNY", nombre: "Chinese Yuan", bandera: "🇨🇳" }
 ];
 
-const todasLasMonedas = [
-  "EUR",
-  "USD",
-  "GBP",
-  "JPY",
-  "CAD",
-  "AUD",
-  "CHF",
-  "CNY",
-  "MXN",
-  "BRL",
-  "ARS",
-  "CLP",
-  "COP",
-  "PEN",
-  "UYU",
-  "PYG",
-  "BOB",
-  "CRC",
-  "GTQ",
-  "HNL",
-  "NIO",
-  "DOP",
-  "AED",
-  "SAR",
-  "TRY",
-  "RUB",
-  "INR",
-  "KRW",
-  "SGD",
-  "HKD",
-  "NZD",
-  "ZAR"
-];
+const conversoresApi = window.ConverUniversConversores;
+const configMonedas = conversoresApi ? conversoresApi.registro.monedas : null;
 
-const infoMonedas = {
-    EUR: "🇪🇺 Euro (EUR)",
-    USD: "🇺🇸 US Dollar (USD)",
-    GBP: "🇬🇧 Pound Sterling (GBP)",
-    JPY: "🇯🇵 Japanese Yen (JPY)",
-    CAD: "🇨🇦 Canadian Dollar (CAD)",
-    AUD: "🇦🇺 Australian Dollar (AUD)",
-    CHF: "🇨🇭 Swiss Franc (CHF)",
-    CNY: "🇨🇳 Chinese Yuan (CNY)",
-    MXN: "🇲🇽 Mexican Peso (MXN)",
-    BRL: "🇧🇷 Brazilian Real (BRL)",
-    ARS: "🇦🇷 Argentine Peso (ARS)",
-    CLP: "🇨🇱 Chilean Peso (CLP)",
-    COP: "🇨🇴 Colombian Peso (COP)",
-    PEN: "🇵🇪 Peruvian Sol (PEN)",
-    UYU: "🇺🇾 Uruguayan Peso (UYU)",
-    PYG: "🇵🇾 Paraguayan Guaraní (PYG)",
-    BOB: "🇧🇴 Bolivian Boliviano (BOB)",
-    CRC: "🇨🇷 Costa Rican Colón (CRC)",
-    GTQ: "🇬🇹 Guatemalan Quetzal (GTQ)",
-    HNL: "🇭🇳 Honduran Lempira (HNL)",
-    NIO: "🇳🇮 Nicaraguan Córdoba (NIO)",
-    DOP: "🇩🇴 Dominican Peso (DOP)",
-    AED: "🇦🇪 UAE Dirham (AED)",
-    SAR: "🇸🇦 Saudi Riyal (SAR)",
-    TRY: "🇹🇷 Turkish Lira (TRY)",
-    RUB: "🇷🇺 Russian Ruble (RUB)",
-    INR: "🇮🇳 Indian Rupee (INR)",
-    KRW: "🇰🇷 South Korean Won (KRW)",
-    SGD: "🇸🇬 Singapore Dollar (SGD)",
-    HKD: "🇭🇰 Hong Kong Dollar (HKD)",
-    NZD: "🇳🇿 New Zealand Dollar (NZD)",
-    ZAR: "🇿🇦 South African Rand (ZAR)"
-};
+const todasLasMonedas = configMonedas ? configMonedas.codigos : [];
+
+const infoMonedas = configMonedas ? configMonedas.info : {};
+
 
 function cargarMonedas() {
 
@@ -124,6 +62,13 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
+
 async function convertir(guardarHistorial = true) {
     const cantidad = parseFloat(document.getElementById("cantidad").value);
     const origen = document.getElementById("origen").value;
@@ -132,6 +77,9 @@ async function convertir(guardarHistorial = true) {
 
     if (Number.isNaN(cantidad)) {
         resultadoEl.textContent = "Introduce una cantidad válida";
+        if (panelDetalle) {
+            panelDetalle.actualizar({});
+        }
         return;
     }
 
@@ -155,8 +103,27 @@ async function convertir(guardarHistorial = true) {
         if (guardarHistorial) {
             programarHistorial(texto);
         }
+
+        if (panelDetalle) {
+            const tasaInversa = 1 / tasa;
+            panelDetalle.actualizar({
+                explicacion: `${formatearNumero(cantidad, 2)} ${origen} equivalen a ${resultado} ${destino} según el tipo de cambio actual.`,
+                formula: "resultado = cantidad × tasa_de_cambio",
+                factor: `1 ${origen} = ${formatearNumero(tasa, 4)} ${destino}`,
+                filas: [
+                    { etiqueta: `1 ${origen}`, valor: `${formatearNumero(tasa, 4)} ${destino}` },
+                    { etiqueta: `10 ${origen}`, valor: `${formatearNumero(tasa * 10, 2)} ${destino}` },
+                    { etiqueta: `100 ${origen}`, valor: `${formatearNumero(tasa * 100, 2)} ${destino}` },
+                    { etiqueta: `1 ${destino}`, valor: `${formatearNumero(tasaInversa, 4)} ${origen}` },
+                    { etiqueta: "Última actualización", valor: datos.time_last_update_utc || "No disponible" }
+                ]
+            });
+        }
     } catch (error) {
         resultadoEl.textContent = error.message;
+        if (panelDetalle) {
+            panelDetalle.actualizar({});
+        }
     }
 }
 
@@ -165,4 +132,7 @@ document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
 
 cargarMonedas();
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);

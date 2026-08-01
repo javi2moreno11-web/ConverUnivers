@@ -19,17 +19,20 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
-const simbolosAlmacenamiento = {
-    "Bytes": "B",
-    "KB": "KB",
-    "MB": "MB",
-    "GB": "GB",
-    "TB": "TB"
-};
+const conversoresApi = window.ConverUniversConversores;
+const configAlmacenamiento = conversoresApi ? conversoresApi.registro.almacenamiento : null;
+const simbolosAlmacenamiento = configAlmacenamiento ? configAlmacenamiento.simbolos : {};
 
 function simbolo(nombre) {
     return simbolosAlmacenamiento[nombre] || nombre;
 }
+
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
 
 function convertir(guardarHistorial = true) {
 
@@ -37,58 +40,29 @@ function convertir(guardarHistorial = true) {
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
 
-    let bytes;
-
-    if (origen === "Bytes") {
-        bytes = cantidad;
-    }
-
-    if (origen === "KB") {
-        bytes = cantidad * 1024;
-    }
-
-    if (origen === "MB") {
-        bytes = cantidad * 1024 * 1024;
-    }
-
-    if (origen === "GB") {
-        bytes = cantidad * 1024 * 1024 * 1024;
-    }
-
-    if (origen === "TB") {
-        bytes = cantidad * 1024 * 1024 * 1024 * 1024;
-    }
-
-    let resultado;
-
-    if (destino === "Bytes") {
-        resultado = bytes;
-    }
-
-    if (destino === "KB") {
-        resultado = bytes / 1024;
-    }
-
-    if (destino === "MB") {
-        resultado = bytes / (1024 * 1024);
-    }
-
-    if (destino === "GB") {
-        resultado = bytes / (1024 * 1024 * 1024);
-    }
-
-    if (destino === "TB") {
-        resultado = bytes / (1024 * 1024 * 1024 * 1024);
-    }
+    const factores = configAlmacenamiento.factores;
+    const resultado = conversoresApi.convertirPorFactor(cantidad, origen, destino, factores);
 
     const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);
     }
+
+    if (panelDetalle) {
+        panelDetalle.actualizar({
+            explicacion: conversoresApi.generarExplicacionFactor(cantidad, origen, destino, resultado, configAlmacenamiento.nombre, simbolosAlmacenamiento, formatearNumero),
+            formula: conversoresApi.generarFormulaFactor(origen, destino, factores),
+            factor: conversoresApi.generarFactorConversion(origen, destino, factores, simbolosAlmacenamiento, formatearNumero),
+            filas: conversoresApi.construirEquivalencias(cantidad * factores[origen], factores, simbolosAlmacenamiento, formatearNumero)
+        });
+    }
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);

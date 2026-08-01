@@ -19,20 +19,20 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
-const simbolosLongitud = {
-    "Metros": "m",
-    "Kilómetros": "km",
-    "Centímetros": "cm",
-    "Milímetros": "mm",
-    "Millas": "mi",
-    "Yardas": "yd",
-    "Pies": "ft",
-    "Pulgadas": "in"
-};
+const conversoresApi = window.ConverUniversConversores;
+const configLongitud = conversoresApi ? conversoresApi.registro.longitud : null;
+const simbolosLongitud = configLongitud ? configLongitud.simbolos : {};
 
 function simbolo(nombre) {
     return simbolosLongitud[nombre] || nombre;
 }
+
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
 
 function convertir(guardarHistorial = true) {
 
@@ -41,79 +41,29 @@ function convertir(guardarHistorial = true) {
     let origen = document.getElementById("origen").value;
     let destino = document.getElementById("destino").value;
 
-    let metros;
+    const factores = configLongitud.factores;
+    const resultado = conversoresApi.convertirPorFactor(cantidad, origen, destino, factores);
 
-    if (origen === "Metros") {
-        metros = cantidad;
-    }
-
-    if (origen === "Kilómetros") {
-        metros = cantidad * 1000;
-    }
-
-    if (origen === "Centímetros") {
-        metros = cantidad / 100;
-    }
-
-    if (origen === "Milímetros") {
-        metros = cantidad / 1000;
-    }
-
-    if (origen === "Millas") {
-        metros = cantidad * 1609.344;
-    }
-
-    if (origen === "Yardas") {
-        metros = cantidad * 0.9144;
-    }
-
-    if (origen === "Pies") {
-        metros = cantidad * 0.3048;
-    }
-
-    if (origen === "Pulgadas") {
-        metros = cantidad * 0.0254;
-    }
-    let resultado;
-
-    if (destino === "Metros") {
-        resultado = metros;
-    }
-
-    if (destino === "Kilómetros") {
-        resultado = metros / 1000;
-    }
-
-    if (destino === "Centímetros") {
-        resultado = metros * 100;
-    }
-
-    if (destino === "Milímetros") {
-        resultado = metros * 1000;
-    }
-     if (destino === "Millas") {
-    resultado = metros / 1609.344;
-}
-
-if (destino === "Yardas") {
-    resultado = metros / 0.9144;
-}
-
-if (destino === "Pies") {
-    resultado = metros / 0.3048;
-}
-
-if (destino === "Pulgadas") {
-    resultado = metros / 0.0254;
-}
     const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);
+    }
+
+    if (panelDetalle) {
+        panelDetalle.actualizar({
+            explicacion: conversoresApi.generarExplicacionFactor(cantidad, origen, destino, resultado, configLongitud.nombre, simbolosLongitud, formatearNumero),
+            formula: conversoresApi.generarFormulaFactor(origen, destino, factores),
+            factor: conversoresApi.generarFactorConversion(origen, destino, factores, simbolosLongitud, formatearNumero),
+            filas: conversoresApi.construirEquivalencias(cantidad * factores[origen], factores, simbolosLongitud, formatearNumero)
+        });
     }
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);

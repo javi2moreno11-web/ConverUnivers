@@ -19,17 +19,20 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
-const simbolosArea = {
-    "Metros cuadrados": "m²",
-    "Kilómetros cuadrados": "km²",
-    "Centímetros cuadrados": "cm²",
-    "Hectáreas": "ha",
-    "Acres": "ac"
-};
+const conversoresApi = window.ConverUniversConversores;
+const configArea = conversoresApi ? conversoresApi.registro.area : null;
+const simbolosArea = configArea ? configArea.simbolos : {};
 
 function simbolo(nombre) {
     return simbolosArea[nombre] || nombre;
 }
+
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
 
 function convertir(guardarHistorial = true) {
 
@@ -37,58 +40,29 @@ function convertir(guardarHistorial = true) {
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
 
-    let metros2;
-
-    if (origen === "Metros cuadrados") {
-        metros2 = cantidad;
-    }
-
-    if (origen === "Kilómetros cuadrados") {
-        metros2 = cantidad * 1000000;
-    }
-
-    if (origen === "Centímetros cuadrados") {
-        metros2 = cantidad / 10000;
-    }
-
-    if (origen === "Hectáreas") {
-        metros2 = cantidad * 10000;
-    }
-
-    if (origen === "Acres") {
-        metros2 = cantidad * 4046.8564224;
-    }
-
-    let resultado;
-
-    if (destino === "Metros cuadrados") {
-        resultado = metros2;
-    }
-
-    if (destino === "Kilómetros cuadrados") {
-        resultado = metros2 / 1000000;
-    }
-
-    if (destino === "Centímetros cuadrados") {
-        resultado = metros2 * 10000;
-    }
-
-    if (destino === "Hectáreas") {
-        resultado = metros2 / 10000;
-    }
-
-    if (destino === "Acres") {
-        resultado = metros2 / 4046.8564224;
-    }
+    const factores = configArea.factores;
+    const resultado = conversoresApi.convertirPorFactor(cantidad, origen, destino, factores);
 
     const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);
     }
+
+    if (panelDetalle) {
+        panelDetalle.actualizar({
+            explicacion: conversoresApi.generarExplicacionFactor(cantidad, origen, destino, resultado, configArea.nombre, simbolosArea, formatearNumero),
+            formula: conversoresApi.generarFormulaFactor(origen, destino, factores),
+            factor: conversoresApi.generarFactorConversion(origen, destino, factores, simbolosArea, formatearNumero),
+            filas: conversoresApi.construirEquivalencias(cantidad * factores[origen], factores, simbolosArea, formatearNumero)
+        });
+    }
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);

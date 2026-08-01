@@ -15,36 +15,13 @@ function programarHistorial(texto) {
     }, 400);
 }
 
-const zonasHorarias = [
-    { value: "UTC-12", city: "Baker / Howland", utcLabel: "UTC-12", offset: -12 },
-    { value: "UTC-11", city: "Samoa Americana", utcLabel: "UTC-11", offset: -11 },
-    { value: "UTC-10", city: "Hawái", utcLabel: "UTC-10", offset: -10 },
-    { value: "UTC-9", city: "Alaska", utcLabel: "UTC-9", offset: -9 },
-    { value: "UTC-8", city: "Los Ángeles", utcLabel: "UTC-8", offset: -8 },
-    { value: "UTC-7", city: "Denver", utcLabel: "UTC-7", offset: -7 },
-    { value: "UTC-6", city: "Ciudad de México", utcLabel: "UTC-6", offset: -6 },
-    { value: "UTC-5", city: "Nueva York", utcLabel: "UTC-5", offset: -5 },
-    { value: "UTC-4", city: "Caracas", utcLabel: "UTC-4", offset: -4 },
-    { value: "UTC-3", city: "Buenos Aires", utcLabel: "UTC-3", offset: -3 },
-    { value: "UTC-2", city: "Georgia del Sur", utcLabel: "UTC-2", offset: -2 },
-    { value: "UTC-1", city: "Azores", utcLabel: "UTC-1", offset: -1 },
-    { value: "UTC+0", city: "Londres / UTC", utcLabel: "UTC+0", offset: 0 },
-    { value: "UTC+1", city: "Madrid", utcLabel: "UTC+1", offset: 1 },
-    { value: "UTC+2", city: "El Cairo", utcLabel: "UTC+2", offset: 2 },
-    { value: "UTC+3", city: "Moscú", utcLabel: "UTC+3", offset: 3 },
-    { value: "UTC+4", city: "Dubái", utcLabel: "UTC+4", offset: 4 },
-    { value: "UTC+5", city: "Karachi", utcLabel: "UTC+5", offset: 5 },
-    { value: "UTC+6", city: "Daca", utcLabel: "UTC+6", offset: 6 },
-    { value: "UTC+7", city: "Bangkok", utcLabel: "UTC+7", offset: 7 },
-    { value: "UTC+8", city: "Pekín", utcLabel: "UTC+8", offset: 8 },
-    { value: "UTC+9", city: "Tokio", utcLabel: "UTC+9", offset: 9 },
-    { value: "UTC+10", city: "Sídney", utcLabel: "UTC+10", offset: 10 },
-    { value: "UTC+11", city: "Numea", utcLabel: "UTC+11", offset: 11 }
-];
+const conversoresApi = window.ConverUniversConversores;
+const zonasHorarias = conversoresApi ? conversoresApi.registro.zonashorarias.zonas : [];
 
 const offsetPorZona = Object.fromEntries(
     zonasHorarias.map((zona) => [zona.value, zona.offset])
 );
+
 
 const zonaPorValor = Object.fromEntries(
     zonasHorarias.map((zona) => [zona.value, zona])
@@ -103,6 +80,13 @@ function poblarSelector(idSelector, valorInicial) {
 poblarSelector("origen", "UTC+1");
 poblarSelector("destino", "UTC+0");
 
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
+
 function convertir(guardarHistorial = true) {
 
     const hora = document.getElementById("cantidad").value;
@@ -156,9 +140,26 @@ function convertir(guardarHistorial = true) {
     if (guardarHistorial) {
         programarHistorial(texto);
     }
+
+    if (panelDetalle) {
+        panelDetalle.actualizar({
+            explicacion: `Cuando en ${etiquetaZona(zonaOrigen)} son las ${horaOrigen}, en ${etiquetaZona(zonaDestino)} son las ${horaDestino} (${cambioDeDia.toLowerCase()}).`,
+            formula: "hora_destino = hora_origen + (desfase_destino − desfase_origen)",
+            factor: `Desfase entre zonas: ${formatearDiferencia(diferenciaHoraria)} respecto a ${etiquetaZona(zonaOrigen)}`,
+            filas: [
+                { etiqueta: "Zona de origen", valor: etiquetaZona(zonaOrigen) },
+                { etiqueta: "Zona de destino", valor: etiquetaZona(zonaDestino) },
+                { etiqueta: "Diferencia horaria", valor: formatearDiferencia(diferenciaHoraria) },
+                { etiqueta: "Cambio de día", valor: cambioDeDia }
+            ]
+        });
+    }
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);

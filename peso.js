@@ -19,20 +19,20 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
-const simbolosPeso = {
-    "Kilogramos": "kg",
-    "Gramos": "g",
-    "Miligramos": "mg",
-    "Hectogramos": "hg",
-    "Decagramos": "dag",
-    "Toneladas": "t",
-    "Libras": "lb",
-    "Onzas": "oz"
-};
+const conversoresApi = window.ConverUniversConversores;
+const configPeso = conversoresApi ? conversoresApi.registro.peso : null;
+const simbolosPeso = configPeso ? configPeso.simbolos : {};
 
 function simbolo(nombre) {
     return simbolosPeso[nombre] || nombre;
 }
+
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
 
 function convertir(guardarHistorial = true) {
 
@@ -41,82 +41,29 @@ function convertir(guardarHistorial = true) {
     let origen = document.getElementById("origen").value;
     let destino = document.getElementById("destino").value;
 
-    let kilos;
-
-    if (origen === "Kilogramos") {
-        kilos = cantidad;
-    }
-
-    if (origen === "Gramos") {
-        kilos = cantidad / 1000;
-    }
-
-    if (origen === "Miligramos") {
-        kilos = cantidad / 1000000;
-    }
-
-    if (origen === "Hectogramos") {
-        kilos = cantidad / 10;
-    }
-
-    if (origen === "Decagramos") {
-        kilos = cantidad / 100;
-    }
-
-    if (origen === "Toneladas") {
-        kilos = cantidad * 1000;
-    }
-
-    if (origen === "Libras") {
-        kilos = cantidad * 0.453592;
-    }
-
-    if (origen === "Onzas") {
-        kilos = cantidad * 0.0283495;
-    }
-
-    let resultado;
-
-    if (destino === "Kilogramos") {
-        resultado = kilos;
-    }
-
-    if (destino === "Gramos") {
-        resultado = kilos * 1000;
-    }
-
-    if (destino === "Miligramos") {
-        resultado = kilos * 1000000;
-    }
-
-    if (destino === "Hectogramos") {
-        resultado = kilos * 10;
-    }
-
-    if (destino === "Decagramos") {
-        resultado = kilos * 100;
-    }
-
-    if (destino === "Toneladas") {
-        resultado = kilos / 1000;
-    }
-
-    if (destino === "Libras") {
-        resultado = kilos / 0.453592;
-    }
-
-    if (destino === "Onzas") {
-        resultado = kilos / 0.0283495;
-    }
+    const factores = configPeso.factores;
+    const resultado = conversoresApi.convertirPorFactor(cantidad, origen, destino, factores);
 
     const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);
     }
+
+    if (panelDetalle) {
+        panelDetalle.actualizar({
+            explicacion: conversoresApi.generarExplicacionFactor(cantidad, origen, destino, resultado, configPeso.nombre, simbolosPeso, formatearNumero),
+            formula: conversoresApi.generarFormulaFactor(origen, destino, factores),
+            factor: conversoresApi.generarFactorConversion(origen, destino, factores, simbolosPeso, formatearNumero),
+            filas: conversoresApi.construirEquivalencias(cantidad * factores[origen], factores, simbolosPeso, formatearNumero)
+        });
+    }
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);

@@ -110,55 +110,185 @@
         <section class="conversores-grid" aria-label="Catálogo de conversores">
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="longitud.html" aria-label="Marcar longitud como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="longitud.html"><span aria-hidden="true">📏</span> Longitud</a>
+                <a class="mini-conversor__titulo" href="longitud.html"><span aria-hidden="true">📏</span> Longitud</a>
+                <div class="mini-conversor" data-tipo="longitud">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de longitud">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="longitud.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="peso.html" aria-label="Marcar peso como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="peso.html"><span aria-hidden="true">⚖️</span> Peso</a>
+                <a class="mini-conversor__titulo" href="peso.html"><span aria-hidden="true">⚖️</span> Peso</a>
+                <div class="mini-conversor" data-tipo="peso">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de peso">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="peso.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="temperatura.html" aria-label="Marcar temperatura como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="temperatura.html"><span aria-hidden="true">🌡️</span> Temperatura</a>
+                <a class="mini-conversor__titulo" href="temperatura.html"><span aria-hidden="true">🌡️</span> Temperatura</a>
+                <div class="mini-conversor" data-tipo="temperatura">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="20" inputmode="decimal" aria-label="Cantidad de temperatura">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="temperatura.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="monedas.html" aria-label="Marcar monedas como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="monedas.html"><span aria-hidden="true">💰</span> Monedas</a>
+                <a class="mini-conversor__titulo" href="monedas.html"><span aria-hidden="true">💰</span> Monedas</a>
+                <div class="mini-conversor" data-tipo="monedas">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de dinero">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Moneda de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Moneda de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="monedas.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="criptomonedas.html" aria-label="Marcar criptomonedas como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="criptomonedas.html"><span aria-hidden="true">₿</span> Criptomonedas</a>
+                <a class="mini-conversor__titulo" href="criptomonedas.html"><span aria-hidden="true">₿</span> Criptomonedas</a>
+                <div class="mini-conversor" data-tipo="criptomonedas">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de criptomoneda">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="criptomonedas.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="tiempo.html" aria-label="Marcar tiempo como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="tiempo.html"><span aria-hidden="true">⏱️</span> Tiempo</a>
+                <a class="mini-conversor__titulo" href="tiempo.html"><span aria-hidden="true">⏱️</span> Tiempo</a>
+                <div class="mini-conversor" data-tipo="tiempo">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de tiempo">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="tiempo.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="zonashorarias.html" aria-label="Marcar zonas horarias como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="zonashorarias.html"><span aria-hidden="true">🌍</span> Zonas Horarias</a>
+                <a class="mini-conversor__titulo" href="zonashorarias.html"><span aria-hidden="true">🌍</span> Zonas Horarias</a>
+                <div class="mini-conversor" data-tipo="zonashorarias">
+                    <input type="time" class="mini-input" data-mini="cantidad" value="12:00" aria-label="Hora a convertir">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Zona de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Zona de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="zonashorarias.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="almacenamiento.html" aria-label="Marcar almacenamiento como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="almacenamiento.html"><span aria-hidden="true">💾</span> Almacenamiento</a>
+                <a class="mini-conversor__titulo" href="almacenamiento.html"><span aria-hidden="true">💾</span> Almacenamiento</a>
+                <div class="mini-conversor" data-tipo="almacenamiento">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de almacenamiento">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="almacenamiento.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="velocidad.html" aria-label="Marcar velocidad como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="velocidad.html"><span aria-hidden="true">🚗</span> Velocidad</a>
+                <a class="mini-conversor__titulo" href="velocidad.html"><span aria-hidden="true">🚗</span> Velocidad</a>
+                <div class="mini-conversor" data-tipo="velocidad">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de velocidad">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="velocidad.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="area.html" aria-label="Marcar área como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="area.html"><span aria-hidden="true">📐</span> Área</a>
+                <a class="mini-conversor__titulo" href="area.html"><span aria-hidden="true">📐</span> Área</a>
+                <div class="mini-conversor" data-tipo="area">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de área">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="area.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="volumen.html" aria-label="Marcar volumen como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="volumen.html"><span aria-hidden="true">🧪</span> Volumen</a>
+                <a class="mini-conversor__titulo" href="volumen.html"><span aria-hidden="true">🧪</span> Volumen</a>
+                <div class="mini-conversor" data-tipo="volumen">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de volumen">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="volumen.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="presion.html" aria-label="Marcar presión como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="presion.html"><span aria-hidden="true">🎈</span> Presión</a>
+                <a class="mini-conversor__titulo" href="presion.html"><span aria-hidden="true">🎈</span> Presión</a>
+                <div class="mini-conversor" data-tipo="presion">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de presión">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="presion.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="energia.html" aria-label="Marcar energía como favorito" type="button"><span aria-hidden="true">☆</span></button>
-                <a href="energia.html"><span aria-hidden="true">⚡</span> Energía</a>
+                <a class="mini-conversor__titulo" href="energia.html"><span aria-hidden="true">⚡</span> Energía</a>
+                <div class="mini-conversor" data-tipo="energia">
+                    <input type="number" class="mini-input" data-mini="cantidad" value="1" inputmode="decimal" aria-label="Cantidad de energía">
+                    <div class="mini-conversor__fila">
+                        <select class="mini-select" data-mini="origen" aria-label="Unidad de origen"></select>
+                        <button type="button" class="mini-conversor__invertir" data-mini="invertir" aria-label="Invertir unidades">🔁</button>
+                        <select class="mini-select" data-mini="destino" aria-label="Unidad de destino"></select>
+                    </div>
+                    <p class="mini-conversor__resultado" data-mini="resultado" aria-live="polite"></p>
+                </div>
+                <a class="mini-conversor__cta" data-mini="cta" href="energia.html">Abrir conversor completo →</a>
             </div>
             <div class="tarjeta tarjeta-conversor">
                 <button class="boton-estrella" data-page="calculadora.html" aria-label="Marcar calculadora como favorito" type="button"><span aria-hidden="true">☆</span></button>
@@ -172,6 +302,7 @@
     </footer>
 
     <script src="theme.js" defer></script>
+    <script src="converter-utils.js" defer></script>
     <script src="inicio.js" defer></script>
 
 </body>

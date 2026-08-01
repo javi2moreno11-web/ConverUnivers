@@ -19,35 +19,21 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
-const factoresPresion = {
-    "Pascal (Pa)": 1,
-    "Kilopascal (kPa)": 1000,
-    "Megapascal (MPa)": 1000000,
-    "Bar": 100000,
-    "Milibar (mbar)": 100,
-    "Atmósfera (atm)": 101325,
-    "PSI (lb/in²)": 6894.757293168,
-    "Torr": 101325 / 760,
-    "mmHg (milímetros de mercurio)": 133.322387415,
-    "kgf/cm²": 98066.5
-};
-
-const simbolosPresion = {
-    "Pascal (Pa)": "Pa",
-    "Kilopascal (kPa)": "kPa",
-    "Megapascal (MPa)": "MPa",
-    "Bar": "bar",
-    "Milibar (mbar)": "mbar",
-    "Atmósfera (atm)": "atm",
-    "PSI (lb/in²)": "psi",
-    "Torr": "Torr",
-    "mmHg (milímetros de mercurio)": "mmHg",
-    "kgf/cm²": "kgf/cm²"
-};
+const conversoresApi = window.ConverUniversConversores;
+const configPresion = conversoresApi ? conversoresApi.registro.presion : null;
+const factoresPresion = configPresion ? configPresion.factores : {};
+const simbolosPresion = configPresion ? configPresion.simbolos : {};
 
 function simbolo(nombre) {
     return simbolosPresion[nombre] || nombre;
 }
+
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
 
 function convertir(guardarHistorial = true) {
 
@@ -66,10 +52,22 @@ function convertir(guardarHistorial = true) {
     if (guardarHistorial) {
         programarHistorial(texto);
     }
+
+    if (panelDetalle) {
+        panelDetalle.actualizar({
+            explicacion: conversoresApi.generarExplicacionFactor(cantidad, origen, destino, resultado, configPresion.nombre, simbolosPresion, formatearNumero),
+            formula: conversoresApi.generarFormulaFactor(origen, destino, factoresPresion),
+            factor: conversoresApi.generarFactorConversion(origen, destino, factoresPresion, simbolosPresion, formatearNumero),
+            filas: conversoresApi.construirEquivalencias(pascales, factoresPresion, simbolosPresion, formatearNumero)
+        });
+    }
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
 
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);

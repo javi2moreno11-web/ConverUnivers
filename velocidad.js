@@ -19,16 +19,20 @@ const formatearNumero = window.ConverUniversFormato
     ? window.ConverUniversFormato.formatearNumero
     : (numero) => String(numero);
 
-const simbolosVelocidad = {
-    "Metros por segundo": "m/s",
-    "Kilómetros por hora": "km/h",
-    "Millas por hora": "mph",
-    "Nudos": "kn"
-};
+const conversoresApi = window.ConverUniversConversores;
+const configVelocidad = conversoresApi ? conversoresApi.registro.velocidad : null;
+const simbolosVelocidad = configVelocidad ? configVelocidad.simbolos : {};
 
 function simbolo(nombre) {
     return simbolosVelocidad[nombre] || nombre;
 }
+
+const panelDetalle = window.ConverUniversDetalle ? window.ConverUniversDetalle.crearPanelDetalle({
+    explicacion: document.getElementById("detalle-explicacion"),
+    formula: document.getElementById("detalle-formula"),
+    factor: document.getElementById("detalle-factor"),
+    lista: document.getElementById("detalle-lista")
+}) : null;
 
 function convertir(guardarHistorial = true) {
 
@@ -36,50 +40,29 @@ function convertir(guardarHistorial = true) {
     const origen = document.getElementById("origen").value;
     const destino = document.getElementById("destino").value;
 
-    let ms;
-
-    if (origen === "Metros por segundo") {
-        ms = cantidad;
-    }
-
-    if (origen === "Kilómetros por hora") {
-        ms = cantidad / 3.6;
-    }
-
-    if (origen === "Millas por hora") {
-        ms = cantidad * 0.44704;
-    }
-
-    if (origen === "Nudos") {
-        ms = cantidad * 0.514444;
-    }
-
-    let resultado;
-
-    if (destino === "Metros por segundo") {
-        resultado = ms;
-    }
-
-    if (destino === "Kilómetros por hora") {
-        resultado = ms * 3.6;
-    }
-
-    if (destino === "Millas por hora") {
-        resultado = ms / 0.44704;
-    }
-
-    if (destino === "Nudos") {
-        resultado = ms / 0.514444;
-    }
+    const factores = configVelocidad.factores;
+    const resultado = conversoresApi.convertirPorFactor(cantidad, origen, destino, factores);
 
     const texto = formatearNumero(cantidad) + " " + simbolo(origen) + " = " + formatearNumero(resultado) + " " + simbolo(destino);
     document.getElementById("resultado").textContent = texto;
     if (guardarHistorial) {
         programarHistorial(texto);
     }
+
+    if (panelDetalle) {
+        panelDetalle.actualizar({
+            explicacion: conversoresApi.generarExplicacionFactor(cantidad, origen, destino, resultado, configVelocidad.nombre, simbolosVelocidad, formatearNumero),
+            formula: conversoresApi.generarFormulaFactor(origen, destino, factores),
+            factor: conversoresApi.generarFactorConversion(origen, destino, factores, simbolosVelocidad, formatearNumero),
+            filas: conversoresApi.construirEquivalencias(cantidad * factores[origen], factores, simbolosVelocidad, formatearNumero)
+        });
+    }
 }
 
 document.getElementById("cantidad").addEventListener("input", convertir);
 document.getElementById("origen").addEventListener("change", convertir);
 document.getElementById("destino").addEventListener("change", convertir);
+if (window.ConverUniversConversores) {
+    window.ConverUniversConversores.aplicarPrefillURL();
+}
 convertir(false);
