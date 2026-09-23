@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Google Consent Mode v2: estado por defecto antes de cargar cualquier etiqueta de medición.
+         Se declara lo antes posible en el <head> para que futuras etiquetas de Google (por ejemplo,
+         Google Analytics) respeten desde el primer instante la decisión del usuario. -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+    </script>
+
+    <!-- Google tag (gtag.js) para Google Analytics 4. Gracias al Consent Mode v2 declarado arriba,
+         no se enviarán datos de analítica hasta que el usuario acepte la categoría "Analíticas". -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J41XPKVK76"></script>
+    <script>
+        gtag('js', new Date());
+        gtag('config', 'G-J41XPKVK76');
+    </script>
     <meta name="description" content="Convierte julios, kilojulios, calorías, kilocalorías y vatios-hora con precisión.">
     <title>ConverUnivers | Conversor de Energía</title>
     <link rel="canonical" href="https://converunivers.com/energia.html">
@@ -132,8 +155,13 @@
 
 <footer class="site-footer">
     <p>© 2026 ConverUnivers · Conversor de unidades.</p>
+    <p class="site-footer__legal">
+        <a href="privacidad.html">Política de privacidad</a>
+        · <button type="button" id="abrir-preferencias-cookies" class="enlace-footer">Configurar cookies</button>
+    </p>
 </footer>
 
+<script src="consentimiento.js" defer></script>
 <script src="converter-utils.js" defer></script>
     <script src="theme.js" defer></script>
 <script src="acciones.js" defer></script>

@@ -1,4 +1,4 @@
-const CACHE_NAME = "converunivers-v2";
+const CACHE_NAME = "converunivers-v3";
 
 const FILES_TO_CACHE = [
   "/",
@@ -6,6 +6,7 @@ const FILES_TO_CACHE = [
   "/almacenamiento.html",
   "/area.html",
   "/calculadora.html",
+  "/privacidad.html",
   "/criptomonedas.html",
   "/energia.html",
   "/longitud.html",
@@ -23,6 +24,7 @@ const FILES_TO_CACHE = [
   "/theme.js",
   "/acciones.js",
   "/converter-utils.js",
+  "/consentimiento.js",
   "/almacenamiento.js",
   "/area.js",
   "/calculadora.js",
